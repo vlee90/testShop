@@ -12,7 +12,7 @@
 
 -(instancetype)init {
     if (self = [super init]) {
-        _cartArray = [NSMutableArray new];
+        self.cartArray = [NSMutableArray new];
     }
     return self;
 }

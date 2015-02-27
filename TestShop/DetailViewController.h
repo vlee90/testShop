@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Cart.h"
+#import "Item.h"
 
 @interface DetailViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *costLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberInCartLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *buyButton;
+@property (weak, nonatomic) Cart *cart;
+@property (weak, nonatomic) Item *item;
 
 @end

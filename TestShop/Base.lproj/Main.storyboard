@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f2B-cQ-Oq1">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -109,8 +110,82 @@
                     <view key="view" contentMode="scaleToFill" id="CZY-ed-xVi">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NRc-IK-G3A">
+                                <rect key="frame" x="26" y="30" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="5mb-2C-3kd"/>
+                                    <constraint firstAttribute="width" constant="150" id="7Ov-9Q-7ZL"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4d-jh-Ijd">
+                                <rect key="frame" x="186" y="30" width="46" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cost" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaO-XV-wnM">
+                                <rect key="frame" x="186" y="61" width="37" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KV8-Qm-Azo">
+                                <rect key="frame" x="26" y="190" width="44" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# in Cart" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6PJ-Z2-dF5">
+                                <rect key="frame" x="186" y="92" width="66" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFK-7Q-I8U">
+                                <rect key="frame" x="186" y="123" width="50" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.47596837269999998" blue="0.35869588920000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="3TV-Uk-mED"/>
+                                </constraints>
+                                <state key="normal" title="Buy">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buyButtonPressed:" destination="lMV-m7-2a2" eventType="touchUpInside" id="gKz-Ub-GJe"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6PJ-Z2-dF5" firstAttribute="top" secondItem="gaO-XV-wnM" secondAttribute="bottom" constant="10" id="3ER-vn-HGW"/>
+                            <constraint firstItem="qFK-7Q-I8U" firstAttribute="top" secondItem="6PJ-Z2-dF5" secondAttribute="bottom" constant="10" id="3Rl-F7-uSJ"/>
+                            <constraint firstItem="gaO-XV-wnM" firstAttribute="leading" secondItem="V4d-jh-Ijd" secondAttribute="leading" id="6Jk-wL-BpE"/>
+                            <constraint firstItem="NRc-IK-G3A" firstAttribute="leading" secondItem="CZY-ed-xVi" secondAttribute="leadingMargin" constant="10" id="A9H-Ru-CFh"/>
+                            <constraint firstItem="qFK-7Q-I8U" firstAttribute="leading" secondItem="6PJ-Z2-dF5" secondAttribute="leading" id="EBw-s6-zQL"/>
+                            <constraint firstItem="gaO-XV-wnM" firstAttribute="top" secondItem="pqu-nm-wtJ" secondAttribute="bottom" constant="10" id="JzU-6C-q7D"/>
+                            <constraint firstItem="KV8-Qm-Azo" firstAttribute="top" secondItem="NRc-IK-G3A" secondAttribute="bottom" constant="10" id="L0F-Er-dWE"/>
+                            <constraint firstItem="V4d-jh-Ijd" firstAttribute="top" secondItem="NRc-IK-G3A" secondAttribute="top" id="cN0-zw-lRm"/>
+                            <constraint firstItem="gaO-XV-wnM" firstAttribute="leading" secondItem="6PJ-Z2-dF5" secondAttribute="leading" id="fQl-lX-3Z8"/>
+                            <constraint firstItem="V4d-jh-Ijd" firstAttribute="leading" secondItem="NRc-IK-G3A" secondAttribute="trailing" constant="10" id="gaE-zO-EnR"/>
+                            <constraint firstItem="KV8-Qm-Azo" firstAttribute="leading" secondItem="NRc-IK-G3A" secondAttribute="leading" id="jtO-0k-aJR"/>
+                            <constraint firstItem="gaO-XV-wnM" firstAttribute="top" secondItem="V4d-jh-Ijd" secondAttribute="bottom" constant="10" id="sJb-eO-h5Q"/>
+                            <constraint firstItem="NRc-IK-G3A" firstAttribute="top" secondItem="pqu-nm-wtJ" secondAttribute="bottom" constant="10" id="zah-ec-UBe"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="JzU-6C-q7D"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="buyButton" destination="qFK-7Q-I8U" id="Z44-vo-5d2"/>
+                        <outlet property="costLabel" destination="gaO-XV-wnM" id="fXT-bo-eYl"/>
+                        <outlet property="descriptionLabel" destination="KV8-Qm-Azo" id="1hb-8g-dxM"/>
+                        <outlet property="imageView" destination="NRc-IK-G3A" id="CPQ-ou-Bhm"/>
+                        <outlet property="nameLabel" destination="V4d-jh-Ijd" id="m5u-uX-C1Z"/>
+                        <outlet property="numberInCartLabel" destination="6PJ-Z2-dF5" id="W3u-YU-1xj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJY-dG-8hN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

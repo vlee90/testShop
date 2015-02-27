@@ -12,10 +12,11 @@
 
 -(instancetype)initWithName:(NSString *)name cost:(NSInteger)cost image:(UIImage *)image description:(NSString *)description {
     if (self = [super init]) {
-        _name = name;
-        _cost = cost;
-        _image = image;
-        _itemDescription  = description;
+        self.name = name;
+        self.cost = cost;
+        self.image = image;
+        self.itemDescription  = description;
+        self.count = 0;
     }
     return self;
 }

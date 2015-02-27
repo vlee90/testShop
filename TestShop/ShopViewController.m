@@ -51,6 +51,9 @@
     Item *item = [self.cart.cartArray objectAtIndex:indexPath.row];
     NSLog(@"%@", item.name);
     DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
+    detailVC.cart = self.cart;
+    detailVC.item = item;
+    
     [self.navigationController pushViewController:detailVC animated:true];
 }
 
@@ -72,10 +75,6 @@
                                         cost:3
                                        image:[UIImage imageNamed:@"Orange"]
                                  description:@"Great source of vitamins!"];
-    item0.count = 0;
-    item1.count = 0;
-    item2.count = 0;
-    item3.count = 0;
     [cart.cartArray addObject:item0];
     [cart.cartArray addObject:item1];
     [cart.cartArray addObject:item2];
