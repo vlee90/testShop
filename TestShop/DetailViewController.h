@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *numberInCartLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *buyButton;
-@property (weak, nonatomic) Cart *cart;
-@property (weak, nonatomic) Item *item;
+@property (strong, nonatomic) Item *item;
+@property (strong, nonatomic) NSIndexPath *indexPath;
 
 @end

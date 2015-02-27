@@ -1,5 +1,5 @@
 //
-//  Cart.h
+//  Shop.h
 //  TestShop
 //
 //  Created by Vincent Lee on 2/27/15.
@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Cart : NSObject
+@interface Shop : NSObject
 
-@property (strong, nonatomic) NSMutableArray *cartArray;
+@property (strong, nonatomic) NSArray *shopItems;
 
-+(Cart *)singleton;
--(instancetype)init;
++(Shop *)singleton;
+-(instancetype)initWithAllItems;
 
 @end

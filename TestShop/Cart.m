@@ -7,12 +7,25 @@
 //
 
 #import "Cart.h"
+#import "Shop.h"
 
 @implementation Cart
 
++(Cart *)singleton {
+    
+    static dispatch_once_t pred;
+    static Cart *shared;
+    
+    dispatch_once(&pred, ^{
+        shared = [[Cart alloc] init];
+    });
+    return shared;
+}
+
 -(instancetype)init {
     if (self = [super init]) {
-        self.cartArray = [NSMutableArray new];
+        Shop *shop = [Shop singleton];
+        self.cartArray = [shop.shopItems mutableCopy];
     }
     return self;
 }
