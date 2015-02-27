@@ -18,6 +18,7 @@
 		6302861D1AA1077E001495E2 /* Cart.m in Sources */ = {isa = PBXBuildFile; fileRef = 6302861A1AA1077E001495E2 /* Cart.m */; };
 		630286201AA1078D001495E2 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6302861F1AA1078D001495E2 /* ShopViewController.m */; };
 		630286251AA10928001495E2 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630286241AA10928001495E2 /* ItemCell.xib */; };
+		630286281AA10D2C001495E2 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 630286271AA10D2C001495E2 /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		6302861E1AA1078D001495E2 /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewController.h; sourceTree = "<group>"; };
 		6302861F1AA1078D001495E2 /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
 		630286241AA10928001495E2 /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
+		630286261AA10D2C001495E2 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		630286271AA10D2C001495E2 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +150,8 @@
 			children = (
 				6302861E1AA1078D001495E2 /* ShopViewController.h */,
 				6302861F1AA1078D001495E2 /* ShopViewController.m */,
+				630286261AA10D2C001495E2 /* DetailViewController.h */,
+				630286271AA10D2C001495E2 /* DetailViewController.m */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 				630285F51AA1075A001495E2 /* AppDelegate.m in Sources */,
 				630285F21AA1075A001495E2 /* main.m in Sources */,
 				630286201AA1078D001495E2 /* ShopViewController.m in Sources */,
+				630286281AA10D2C001495E2 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +466,7 @@
 				630286111AA1075A001495E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		630286121AA1075A001495E2 /* Build configuration list for PBXNativeTarget "TestShopTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +475,7 @@
 				630286141AA1075A001495E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

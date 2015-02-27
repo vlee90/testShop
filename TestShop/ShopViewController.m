@@ -10,6 +10,7 @@
 #import "Item.h"
 #import "ItemCell.h"
 #import "Cart.h"
+#import "DetailViewController.h"
 
 @interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -49,6 +50,8 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     Item *item = [self.cart.cartArray objectAtIndex:indexPath.row];
     NSLog(@"%@", item.name);
+    DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
+    [self.navigationController pushViewController:detailVC animated:true];
 }
 
 -(void)fillCart:(Cart *)cart {
