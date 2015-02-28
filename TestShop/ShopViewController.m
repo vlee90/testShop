@@ -12,6 +12,7 @@
 #import "Cart.h"
 #import "DetailViewController.h"
 #import "Shop.h"
+#import "CheckoutViewController.h"
 
 @interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -35,6 +36,11 @@
     [self.collectionView reloadData];
 }
 
+- (IBAction)checkoutButtonPressed:(id)sender {
+    CheckoutViewController *checkoutVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CheckoutVC"];
+    [self.navigationController pushViewController:checkoutVC animated:true];
+}
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ItemCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"ItemCell" forIndexPath:indexPath];
     Shop *shop = [Shop singleton];
@@ -54,10 +60,8 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     Shop *shop = [Shop singleton];
     Item *item = [shop.shopItems objectAtIndex:indexPath.row];
-    NSLog(@"%@", item.name);
     DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     detailVC.item = item;
-    detailVC.indexPath = indexPath;
     
     [self.navigationController pushViewController:detailVC animated:true];
 }

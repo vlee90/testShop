@@ -11,8 +11,11 @@
 @interface Cart : NSObject
 
 @property (strong, nonatomic) NSMutableArray *cartArray;
+@property NSInteger total;
 
 +(Cart *)singleton;
 -(instancetype)init;
+
+-(void)calculateTotal;
 
 @end

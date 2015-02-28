@@ -26,7 +26,13 @@
 -(IBAction)buyButtonPressed:(id)sender {
     Cart *cart = [Cart singleton];
     self.item.count++;
-    [cart.cartArray replaceObjectAtIndex:self.indexPath.row withObject:self.item];
+    if ([cart.cartArray containsObject:self.item]) {
+        NSInteger index = [cart.cartArray indexOfObject:self.item];
+        [cart.cartArray replaceObjectAtIndex:index withObject:self.item];
+    }
+    else {
+        [cart.cartArray addObject:self.item];
+    }
     self.numberInCartLabel.text = [NSString stringWithFormat:@"%ld in Cart", (long)self.item.count];
 }
 

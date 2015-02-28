@@ -8,6 +8,7 @@
 
 #import "Cart.h"
 #import "Shop.h"
+#import "Item.h"
 
 @implementation Cart
 
@@ -24,10 +25,18 @@
 
 -(instancetype)init {
     if (self = [super init]) {
-        Shop *shop = [Shop singleton];
-        self.cartArray = [shop.shopItems mutableCopy];
+        self.cartArray = [NSMutableArray new];
     }
     return self;
+}
+
+-(void)calculateTotal {
+    self.total = 0;
+    for (NSInteger i = 0; i < self.cartArray.count; i++) {
+        Item *item = [self.cartArray objectAtIndex:i];
+        NSInteger subtotal = item.count * item.cost;
+        self.total += subtotal;
+    }
 }
 
 @end

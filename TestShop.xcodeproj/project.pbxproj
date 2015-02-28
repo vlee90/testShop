@@ -21,6 +21,8 @@
 		630286281AA10D2C001495E2 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 630286271AA10D2C001495E2 /* DetailViewController.m */; };
 		6302862F1AA12203001495E2 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = 6302862E1AA12203001495E2 /* Shop.m */; };
 		630286351AA12D7A001495E2 /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 630286341AA12D7A001495E2 /* CheckoutViewController.m */; };
+		630286391AA12E57001495E2 /* CheckoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 630286371AA12E57001495E2 /* CheckoutCell.m */; };
+		6302863A1AA12E57001495E2 /* CheckoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630286381AA12E57001495E2 /* CheckoutCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,9 @@
 		6302862E1AA12203001495E2 /* Shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shop.m; sourceTree = "<group>"; };
 		630286331AA12D7A001495E2 /* CheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutViewController.h; sourceTree = "<group>"; };
 		630286341AA12D7A001495E2 /* CheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutViewController.m; sourceTree = "<group>"; };
+		630286361AA12E57001495E2 /* CheckoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutCell.h; sourceTree = "<group>"; };
+		630286371AA12E57001495E2 /* CheckoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutCell.m; sourceTree = "<group>"; };
+		630286381AA12E57001495E2 /* CheckoutCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckoutCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +154,8 @@
 				6302861A1AA1077E001495E2 /* Cart.m */,
 				6302862D1AA12203001495E2 /* Shop.h */,
 				6302862E1AA12203001495E2 /* Shop.m */,
+				630286361AA12E57001495E2 /* CheckoutCell.h */,
+				630286371AA12E57001495E2 /* CheckoutCell.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -169,6 +176,7 @@
 		630286231AA108CB001495E2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				630286381AA12E57001495E2 /* CheckoutCell.xib */,
 				630286241AA10928001495E2 /* ItemCell.xib */,
 				630285FE1AA1075A001495E2 /* LaunchScreen.xib */,
 				630285F91AA1075A001495E2 /* Main.storyboard */,
@@ -257,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				630286251AA10928001495E2 /* ItemCell.xib in Resources */,
+				6302863A1AA12E57001495E2 /* CheckoutCell.xib in Resources */,
 				630285FB1AA1075A001495E2 /* Main.storyboard in Resources */,
 				630286001AA1075A001495E2 /* LaunchScreen.xib in Resources */,
 				630285FD1AA1075A001495E2 /* Images.xcassets in Resources */,
@@ -284,6 +293,7 @@
 				6302861B1AA1077E001495E2 /* Item.m in Sources */,
 				630285F51AA1075A001495E2 /* AppDelegate.m in Sources */,
 				630285F21AA1075A001495E2 /* main.m in Sources */,
+				630286391AA12E57001495E2 /* CheckoutCell.m in Sources */,
 				630286201AA1078D001495E2 /* ShopViewController.m in Sources */,
 				630286281AA10D2C001495E2 /* DetailViewController.m in Sources */,
 			);

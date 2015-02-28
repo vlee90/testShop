@@ -19,6 +19,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *buyButton;
 @property (strong, nonatomic) Item *item;
-@property (strong, nonatomic) NSIndexPath *indexPath;
 
 @end
