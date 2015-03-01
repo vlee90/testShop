@@ -12,7 +12,7 @@
 #import "Cart.h"
 #import "DetailViewController.h"
 #import "Shop.h"
-#import "CheckoutViewController.h"
+#import "CartViewController.h"
 
 @interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -36,9 +36,9 @@
     [self.collectionView reloadData];
 }
 
-- (IBAction)checkoutButtonPressed:(id)sender {
-    CheckoutViewController *checkoutVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CheckoutVC"];
-    [self.navigationController pushViewController:checkoutVC animated:true];
+- (IBAction)cartButtonPressed:(id)sender {
+    CartViewController *cartVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CartVC"];
+    [self.navigationController pushViewController:cartVC animated:true];
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

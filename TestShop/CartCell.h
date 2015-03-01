@@ -1,5 +1,5 @@
 //
-//  CheckoutCell.h
+//  CartCell.h
 //  TestShop
 //
 //  Created by Vincent Lee on 2/27/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CheckoutCell : UITableViewCell
+@interface CartCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *checkoutImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;

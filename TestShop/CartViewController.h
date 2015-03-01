@@ -1,14 +1,13 @@
 //
-//  CheckoutCell.m
+//  CartViewController.h
 //  TestShop
 //
 //  Created by Vincent Lee on 2/27/15.
 //  Copyright (c) 2015 Analytics Pros. All rights reserved.
 //
 
-#import "CheckoutCell.h"
+#import <UIKit/UIKit.h>
 
-@implementation CheckoutCell
-
+@interface CartViewController : UIViewController
 
 @end
