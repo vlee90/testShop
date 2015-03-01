@@ -17,6 +17,7 @@
 @interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cartBarButtonItem;
 
 @end
 
@@ -34,6 +35,8 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.collectionView reloadData];
+    NSInteger totalNumberOfItems = [[Cart singleton] totalNumberOfItemsInCart];
+    self.cartBarButtonItem.title = [NSString stringWithFormat:@"Cart(%ld)", (long)totalNumberOfItems];
 }
 
 - (IBAction)cartButtonPressed:(id)sender {

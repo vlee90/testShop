@@ -17,5 +17,6 @@
 -(instancetype)init;
 
 -(void)calculateTotal;
+-(NSInteger)totalNumberOfItemsInCart;
 
 @end

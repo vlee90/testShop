@@ -98,6 +98,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cartBarButtonItem" destination="aJT-PD-hQl" id="FT4-9K-D1s"/>
                         <outlet property="collectionView" destination="FPq-3Q-EcO" id="UqC-tH-Trq"/>
                     </connections>
                 </viewController>

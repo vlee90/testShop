@@ -39,4 +39,13 @@
     }
 }
 
+-(NSInteger)totalNumberOfItemsInCart {
+    NSInteger totalNumberOfItems = 0;
+    for (int i = 0; i < self.cartArray.count; i++) {
+        Item *item = [self.cartArray objectAtIndex:i];
+        totalNumberOfItems += item.count;
+    }
+    return totalNumberOfItems;
+}
+
 @end
