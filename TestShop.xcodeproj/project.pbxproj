@@ -24,6 +24,12 @@
 		630286391AA12E57001495E2 /* CartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 630286371AA12E57001495E2 /* CartCell.m */; };
 		6302863A1AA12E57001495E2 /* CartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630286381AA12E57001495E2 /* CartCell.xib */; };
 		6302863D1AA15317001495E2 /* ThankYouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6302863C1AA15317001495E2 /* ThankYouViewController.m */; };
+		635861F31AA3D4A800879E68 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635861F21AA3D4A800879E68 /* CoreData.framework */; };
+		635861F51AA3D4BB00879E68 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635861F41AA3D4BB00879E68 /* SystemConfiguration.framework */; };
+		635861F71AA3D4C400879E68 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 635861F61AA3D4C400879E68 /* libz.dylib */; };
+		635861F91AA3D4CE00879E68 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 635861F81AA3D4CE00879E68 /* libsqlite3.dylib */; };
+		635861FD1AA3D4F300879E68 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635861FC1AA3D4F300879E68 /* libGoogleAnalyticsServices.a */; };
+		635862031AA3F06200879E68 /* GTM-NJNM8T in Resources */ = {isa = PBXBuildFile; fileRef = 635862021AA3F06200879E68 /* GTM-NJNM8T */; };
 		63C1C4AA1AA28D9500CDCD3F /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C1C4A91AA28D9500CDCD3F /* CheckoutViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +75,17 @@
 		630286381AA12E57001495E2 /* CartCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartCell.xib; sourceTree = "<group>"; };
 		6302863B1AA15317001495E2 /* ThankYouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThankYouViewController.h; sourceTree = "<group>"; };
 		6302863C1AA15317001495E2 /* ThankYouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThankYouViewController.m; sourceTree = "<group>"; };
+		630C8D3C1AA4CEF30087D789 /* TAGContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAGContainer.h; path = Library/TAGContainer.h; sourceTree = "<group>"; };
+		630C8D3D1AA4CEF30087D789 /* TAGContainerOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAGContainerOpener.h; path = Library/TAGContainerOpener.h; sourceTree = "<group>"; };
+		630C8D3E1AA4CEF30087D789 /* TAGDataLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAGDataLayer.h; path = Library/TAGDataLayer.h; sourceTree = "<group>"; };
+		630C8D3F1AA4CEF30087D789 /* TAGLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAGLogger.h; path = Library/TAGLogger.h; sourceTree = "<group>"; };
+		630C8D401AA4CEF30087D789 /* TAGManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAGManager.h; path = Library/TAGManager.h; sourceTree = "<group>"; };
+		635861F21AA3D4A800879E68 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		635861F41AA3D4BB00879E68 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		635861F61AA3D4C400879E68 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		635861F81AA3D4CE00879E68 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		635861FC1AA3D4F300879E68 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		635862021AA3F06200879E68 /* GTM-NJNM8T */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-NJNM8T"; sourceTree = "<group>"; };
 		63C1C4A81AA28D9500CDCD3F /* CheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutViewController.h; sourceTree = "<group>"; };
 		63C1C4A91AA28D9500CDCD3F /* CheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,6 +95,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				635861F91AA3D4CE00879E68 /* libsqlite3.dylib in Frameworks */,
+				635861F71AA3D4C400879E68 /* libz.dylib in Frameworks */,
+				635861F51AA3D4BB00879E68 /* SystemConfiguration.framework in Frameworks */,
+				635861F31AA3D4A800879E68 /* CoreData.framework in Frameworks */,
+				635861FD1AA3D4F300879E68 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +148,7 @@
 		630285EF1AA1075A001495E2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				635861F11AA3D49A00879E68 /* GTM */,
 				630285F01AA1075A001495E2 /* Info.plist */,
 				630285F11AA1075A001495E2 /* main.m */,
 			);
@@ -192,6 +215,24 @@
 				630285F91AA1075A001495E2 /* Main.storyboard */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		635861F11AA3D49A00879E68 /* GTM */ = {
+			isa = PBXGroup;
+			children = (
+				630C8D3C1AA4CEF30087D789 /* TAGContainer.h */,
+				630C8D3D1AA4CEF30087D789 /* TAGContainerOpener.h */,
+				630C8D3E1AA4CEF30087D789 /* TAGDataLayer.h */,
+				630C8D3F1AA4CEF30087D789 /* TAGLogger.h */,
+				630C8D401AA4CEF30087D789 /* TAGManager.h */,
+				635862021AA3F06200879E68 /* GTM-NJNM8T */,
+				635861F81AA3D4CE00879E68 /* libsqlite3.dylib */,
+				635861F61AA3D4C400879E68 /* libz.dylib */,
+				635861F41AA3D4BB00879E68 /* SystemConfiguration.framework */,
+				635861F21AA3D4A800879E68 /* CoreData.framework */,
+				635861FC1AA3D4F300879E68 /* libGoogleAnalyticsServices.a */,
+			);
+			name = GTM;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +318,7 @@
 				630286251AA10928001495E2 /* ItemCell.xib in Resources */,
 				6302863A1AA12E57001495E2 /* CartCell.xib in Resources */,
 				630285FB1AA1075A001495E2 /* Main.storyboard in Resources */,
+				635862031AA3F06200879E68 /* GTM-NJNM8T in Resources */,
 				630286001AA1075A001495E2 /* LaunchScreen.xib in Resources */,
 				630285FD1AA1075A001495E2 /* Images.xcassets in Resources */,
 			);
@@ -433,6 +475,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TestShop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/vincentlee/Downloads/GoogleAnalyticsServicesiOS_3.10,
+					"$(PROJECT_DIR)/TestShop",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -443,6 +490,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TestShop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/vincentlee/Downloads/GoogleAnalyticsServicesiOS_3.10,
+					"$(PROJECT_DIR)/TestShop",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

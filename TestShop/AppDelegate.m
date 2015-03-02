@@ -7,8 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "TAGContainerOpener.h"
 
-@interface AppDelegate ()
+
+@interface AppDelegate ()<TAGContainerOpenerNotifier>
 
 @end
 
