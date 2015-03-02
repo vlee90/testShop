@@ -17,7 +17,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 //  Create public properties of the forwardly declared classes.
-@property (strong, nonatomic) TAGManager *mananger;
+@property (strong, nonatomic) TAGManager *tagManager;
 @property (strong, nonatomic) TAGContainer *container;
 
 
