@@ -26,7 +26,7 @@
     self.tagManager = [TAGManager instance];
     
     //  Set Logger Level
-    [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelNone];
+    [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
     
     UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
     

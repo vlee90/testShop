@@ -49,14 +49,6 @@
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
     
-    //  DataLayer push.
-    //  Get the dataLayer property from the TAGManager Singleton.
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    //  Pushing "Shop View" to the "screenName" key. This is from the "Data Layer - Screen Name" macro.
-    //  Also pushing an event called "openScreen". This will fire the rule "Event - Open Screen".
-    [dataLayer push:@{@"screenName" : self.screenName,
-                     @"event" : @"openScreen"}];
-    
     [self.collectionView reloadData];
     NSInteger totalNumberOfItems = [[Cart singleton] totalNumberOfItemsInCart];
     self.cartBarButtonItem.title = [NSString stringWithFormat:@"Cart(%ld)", (long)totalNumberOfItems];
