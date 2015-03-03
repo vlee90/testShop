@@ -11,9 +11,12 @@
 #import "CartCell.h"
 #import "Item.h"
 #import "CheckoutViewController.h"
+#import "TAGDataLayer.h"
+#import "TAGManager.h"
 
 @interface CartViewController ()<UITableViewDataSource>
 
+@property (strong, nonatomic) NSString *screenName;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 
@@ -23,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = @"Cart View";
     UINib *checkoutNib = [UINib nibWithNibName:@"CartCell" bundle:[NSBundle mainBundle]];
     [self.tableView registerNib:checkoutNib forCellReuseIdentifier:@"CartCell"];
     self.tableView.dataSource = self;
@@ -34,6 +38,13 @@
     
     [[Cart singleton] calculateTotal];
     self.totalLabel.text = [NSString stringWithFormat:@"Total: $%ld.00", (long)[Cart singleton].total];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:@{@"event" : @"openScreen",
+                      @"screenName" : self.screenName}];
 }
 
 -(void)checkoutButtonPressed:(id)sender {

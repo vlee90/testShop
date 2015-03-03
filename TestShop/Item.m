@@ -10,13 +10,17 @@
 
 @implementation Item
 
--(instancetype)initWithName:(NSString *)name cost:(NSInteger)cost image:(UIImage *)image description:(NSString *)description {
+-(instancetype)initWithName:(NSString *)name cost:(NSInteger)cost image:(UIImage *)image description:(NSString *)description sku:(NSString *)sku brand:(NSString *)brand category:(NSString *)category varient:(NSString *)varient {
     if (self = [super init]) {
         self.name = name;
         self.cost = cost;
         self.image = image;
         self.itemDescription  = description;
         self.count = 0;
+        self.sku = sku;
+        self.brand = brand;
+        self.category = category;
+        self.varient = varient;
     }
     return self;
 }

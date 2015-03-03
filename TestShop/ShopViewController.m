@@ -62,14 +62,14 @@
         appDelegate.container = container;
         [appDelegate.container refresh];
         NSLog(@"Container availiable");
-        
         TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-        [dataLayer push:@{@"screenName" : self.screenName,
-                          @"event" : @"openScreen"}];
+        [dataLayer push:@{@"event" : @"openScreen",
+                          @"screenName" : self.screenName}];
     });
 }
 
 - (IBAction)cartButtonPressed:(id)sender {
+    TAGDataLayer *dataLayer = 
     CartViewController *cartVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CartVC"];
     [self.navigationController pushViewController:cartVC animated:true];
 }
@@ -82,6 +82,17 @@
     cell.countLabel.text = [NSString stringWithFormat:@"%ld", (long)item.count];
     [cell.countLabel.layer setCornerRadius:5];
     [cell.countLabel.layer setMasksToBounds: true];
+//    NSString *itemCostString = [NSString stringWithFormat:@"%ld", (long)item.cost];
+//    NSNumber *position = [[NSNumber alloc] initWithDouble:indexPath.row];
+//    NSDictionary *itemDictionary =  @{@"name" : item.name,
+//                                      @"id" : item.sku,
+//                                      @"price" : itemCostString,
+//                                      @"brand" : item.brand,
+//                                      @"category" : item.category,
+//                                      @"varient" : item.varient,
+//                                      @"list" : @"Front Page",
+//                                      @"position" : position};
+//    [self.frontPageItemMutableArray addObject:itemDictionary];
     return cell;
 }
 

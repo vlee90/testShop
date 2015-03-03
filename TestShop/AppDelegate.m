@@ -11,8 +11,6 @@
 #import "TAGManager.h"
 #import "ShopViewController.h"
 
-#import "TAGDataLayer.h"
-
 
 @interface AppDelegate ()
 
@@ -36,6 +34,8 @@
                                    openType:kTAGOpenTypePreferFresh
                                     timeout:nil
                                    notifier:(ShopViewController<TAGContainerOpenerNotifier> *)navController.viewControllers[0]];
+    NSTimeInterval dispatchTime = 5;
+    [self.tagManager setDispatchInterval:dispatchTime];
     return YES;
 }
 

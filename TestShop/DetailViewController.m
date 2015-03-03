@@ -7,8 +7,12 @@
 //
 
 #import "DetailViewController.h"
+#import "TAGDataLayer.h"
+#import "TAGManager.h"
 
 @interface DetailViewController ()
+
+@property (nonatomic, strong) NSString *screenName;
 
 @end
 
@@ -16,11 +20,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = [NSString stringWithFormat:@"Detail View - %@", self.item.name];
     self.imageView.image = self.item.image;
     self.nameLabel.text = self.item.name;
     self.costLabel.text = [NSString stringWithFormat:@"$%ld.00", (long)self.item.cost];
     self.descriptionLabel.text = self.item.itemDescription;
     self.numberInCartLabel.text = [NSString stringWithFormat:@"%ld in Cart", (long)self.item.count];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:@{@"event" : @"openScreen",
+                      @"screenName" : self.screenName}];
 }
 
 -(IBAction)buyButtonPressed:(id)sender {

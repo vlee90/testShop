@@ -8,9 +8,12 @@
 
 #import "CheckoutViewController.h"
 #import "ThankYouViewController.h"
+#import "TAGDataLayer.h"
+#import "TAGManager.h"
 
 @interface CheckoutViewController ()
 
+@property (strong, nonatomic) NSString *screenName;
 @property (weak, nonatomic) IBOutlet UITextField *streetAddressField;
 @property (weak, nonatomic) IBOutlet UILabel *shippingLabel;
 @property (weak, nonatomic) IBOutlet UITextField *creditCartNumberField;
@@ -26,12 +29,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = @"Checkout View";
     UIBarButtonItem *confirmButton = [[UIBarButtonItem alloc] initWithTitle:@"Confirm"
                                                                     style:UIBarButtonItemStyleDone
                                                                     target:self
                                                                      action:@selector(confirmButtonPressed:)];
     self.navigationItem.rightBarButtonItem = confirmButton;
     
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:@{@"event" : @"openScreen",
+                      @"screenName" : self.screenName}];
 }
 
 -(void)confirmButtonPressed:(id)sender {

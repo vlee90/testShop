@@ -27,19 +27,35 @@
         Item *item0 = [[Item alloc] initWithName:@"Apple"
                                             cost:3
                                            image:[UIImage imageNamed:@"Apple"]
-                                     description:@"Nice shiney red apple!"];
+                                     description:@"Nice shiney red apple!"
+                                             sku:@"1"
+                                           brand:@"Analytics Pros"
+                                        category:@"Fruit"
+                                         varient:@"Red"];
         Item *item1 = [[Item alloc] initWithName:@"Avacado"
                                             cost:5
                                            image:[UIImage imageNamed:@"Avacado"]
-                                     description:@"Filling food!"];
+                                     description:@"Filling food!"
+                                             sku:@"2"
+                                           brand:@"Analytics Pros"
+                                        category:@"Fruit"
+                                         varient:@"Large"];
         Item *item2 = [[Item alloc] initWithName:@"Egg"
                                             cost:2
                                            image:[UIImage imageNamed:@"Egg"]
-                                     description:@"Great way to start the morning!"];
+                                     description:@"Great way to start the morning!"
+                                             sku:@"3"
+                                           brand:@"Newegg"
+                                        category:@"Produce"
+                                         varient:@"White"];
         Item *item3 = [[Item alloc] initWithName:@"Orange"
                                             cost:3
                                            image:[UIImage imageNamed:@"Orange"]
-                                     description:@"Great source of vitamins!"];
+                                     description:@"Great source of vitamins!"
+                                             sku:@"4"
+                                           brand:@"Analytics Pros"
+                                        category:@"Fruit"
+                                         varient:@"Large"];
         NSMutableArray *array = [NSMutableArray new];
         [array addObject:item0];
         [array addObject:item1];
