@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //  Setting GTM DataLayer Values for DataLayer Macros.
     self.screenName = @"Shop View";
     
     UINib *cellNib = [UINib nibWithNibName:@"ItemCell" bundle:[NSBundle mainBundle]];
@@ -43,7 +44,7 @@
     
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"screenName" : self.screenName,
-                     @"event" : @"screenOpens"}];
+                     @"event" : @"oopen screen"}];
     [self.collectionView reloadData];
     NSInteger totalNumberOfItems = [[Cart singleton] totalNumberOfItemsInCart];
     self.cartBarButtonItem.title = [NSString stringWithFormat:@"Cart(%ld)", (long)totalNumberOfItems];
