@@ -14,10 +14,15 @@
 #import "Shop.h"
 #import "CartViewController.h"
 
+#import "TAGDataLayer.h"
+#import "TAGManager.h"
+
 @interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cartBarButtonItem;
+
+@property (strong, nonatomic) NSString *screenName;
 
 @end
 
@@ -25,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = @"Shop View";
     
     UINib *cellNib = [UINib nibWithNibName:@"ItemCell" bundle:[NSBundle mainBundle]];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"ItemCell"];
@@ -34,6 +40,10 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:@{@"screenName" : self.screenName,
+                     @"event" : @"screenOpens"}];
     [self.collectionView reloadData];
     NSInteger totalNumberOfItems = [[Cart singleton] totalNumberOfItemsInCart];
     self.cartBarButtonItem.title = [NSString stringWithFormat:@"Cart(%ld)", (long)totalNumberOfItems];

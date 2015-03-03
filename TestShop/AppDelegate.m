@@ -10,6 +10,8 @@
 #import "TAGContainerOpener.h"
 #import "TAGManager.h"
 
+#import "TAGDataLayer.h"
+
 
 @interface AppDelegate ()<TAGContainerOpenerNotifier>
 
@@ -26,11 +28,12 @@
     [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
     
     //Open Container
-    [TAGContainerOpener openContainerWithId:@"GTM-XXXXXX"
+    [TAGContainerOpener openContainerWithId:@"GTM-NJNM8T"
                                  tagManager:self.tagManager
                                    openType:kTAGOpenTypePreferFresh
                                     timeout:nil
                                    notifier:self];
+    
     return YES;
 }
 
@@ -39,6 +42,7 @@
     //  Because containerAvailable may run on any thread, use dispatch_async(dispatch_get_main_queue() to ensure the appDelegates container property becomes initialized.
     dispatch_async(dispatch_get_main_queue(), ^{
         self.container = container;
+//        [self.container refresh];
     });
 }
 
