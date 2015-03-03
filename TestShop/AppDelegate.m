@@ -9,11 +9,12 @@
 #import "AppDelegate.h"
 #import "TAGContainerOpener.h"
 #import "TAGManager.h"
+#import "ShopViewController.h"
 
 #import "TAGDataLayer.h"
 
 
-@interface AppDelegate ()<TAGContainerOpenerNotifier>
+@interface AppDelegate ()
 
 @end
 
@@ -27,24 +28,15 @@
     //  Set Logger Level
     [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
     
+    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
+    
     //Open Container
     [TAGContainerOpener openContainerWithId:@"GTM-NJNM8T"
                                  tagManager:self.tagManager
                                    openType:kTAGOpenTypePreferFresh
                                     timeout:nil
-                                   notifier:self];
-    
+                                   notifier:(ShopViewController<TAGContainerOpenerNotifier> *)navController.viewControllers[0]];
     return YES;
-}
-
-//Fires when container finishes loading
--(void)containerAvailable:(TAGContainer *)container {
-    //  Because containerAvailable may run on any thread, use dispatch_async(dispatch_get_main_queue() to ensure the appDelegates container property becomes initialized.
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.container = container;
-        [self.container refresh];
-        NSLog(@"Container availiable");
-    });
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

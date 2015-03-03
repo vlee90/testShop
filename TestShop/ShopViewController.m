@@ -17,7 +17,10 @@
 #import "TAGDataLayer.h"
 #import "TAGManager.h"
 
-@interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+#import "TAGContainerOpener.h"
+#import "AppDelegate.h"
+
+@interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TAGContainerOpenerNotifier>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cartBarButtonItem;
@@ -45,12 +48,24 @@
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
     
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    [dataLayer push:@{@"screenName" : self.screenName,
-                     @"event" : @"openScreen"}];
     [self.collectionView reloadData];
     NSInteger totalNumberOfItems = [[Cart singleton] totalNumberOfItemsInCart];
     self.cartBarButtonItem.title = [NSString stringWithFormat:@"Cart(%ld)", (long)totalNumberOfItems];
+}
+
+//Fires when container finishes loading
+-(void)containerAvailable:(TAGContainer *)container {
+    //  Because containerAvailable may run on any thread, use dispatch_async(dispatch_get_main_queue() to ensure the appDelegates container property becomes initialized.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        appDelegate.container = container;
+        [appDelegate.container refresh];
+        NSLog(@"Container availiable");
+        
+        TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+        [dataLayer push:@{@"screenName" : self.screenName,
+                          @"event" : @"openScreen"}];
+    });
 }
 
 - (IBAction)cartButtonPressed:(id)sender {
