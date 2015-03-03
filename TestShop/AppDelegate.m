@@ -42,7 +42,8 @@
     //  Because containerAvailable may run on any thread, use dispatch_async(dispatch_get_main_queue() to ensure the appDelegates container property becomes initialized.
     dispatch_async(dispatch_get_main_queue(), ^{
         self.container = container;
-//        [self.container refresh];
+        [self.container refresh];
+        NSLog(@"Container availiable");
     });
 }
 
