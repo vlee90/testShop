@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TAGContainerOpener.h"
+#import "TAGManager.h"
 
 
 @interface AppDelegate ()<TAGContainerOpenerNotifier>
@@ -18,12 +19,27 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //  Get singleton of TAGManager
+    self.tagManager = [TAGManager instance];
     
+    //  Set Logger Level
+    [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
+    
+    //Open Container
+    [TAGContainerOpener openContainerWithId:@"GTM-XXXXXX"
+                                 tagManager:self.tagManager
+                                   openType:kTAGOpenTypePreferFresh
+                                    timeout:nil
+                                   notifier:self];
     return YES;
 }
 
+//Fires when container finishes loading
 -(void)containerAvailable:(TAGContainer *)container {
-    
+    //  Because containerAvailable may run on any thread, use dispatch_async(dispatch_get_main_queue() to ensure the appDelegates container property becomes initialized.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.container = container;
+    });
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
