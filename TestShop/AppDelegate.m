@@ -25,7 +25,7 @@
     self.tagManager = [TAGManager instance];
     
     //  Set Logger Level
-    [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
+    [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelNone];
     
     //Open Container
     [TAGContainerOpener openContainerWithId:@"GTM-NJNM8T"
