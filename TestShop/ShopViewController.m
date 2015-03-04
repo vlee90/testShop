@@ -69,7 +69,12 @@
 }
 
 - (IBAction)cartButtonPressed:(id)sender {
-    TAGDataLayer *dataLayer = 
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:@{@"event" : @"buttonPressed",
+                      @"eventCategoryName" : @"Button",
+                      @"eventActionName" : @"Pressed",
+                      @"eventLabelName" : self.cartBarButtonItem.title}];
+                      
     CartViewController *cartVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CartVC"];
     [self.navigationController pushViewController:cartVC animated:true];
 }

@@ -48,6 +48,14 @@
 }
 
 -(void)checkoutButtonPressed:(id)sender {
+    
+    NSNumber *total = [[NSNumber alloc] initWithDouble:[Cart singleton].total];
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:@{@"event" : @"buttonPressed",
+                      @"eventCategoryName" : @"Button",
+                      @"eventActionName" : @"Pressed",
+                      @"eventLabelName" : @"Checkout",
+                      @"eventValueName" : total}];
       CheckoutViewController *checkoutVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CheckoutVC"];
       [self.navigationController pushViewController:checkoutVC animated:true];
 }
