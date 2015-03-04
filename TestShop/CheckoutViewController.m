@@ -8,6 +8,8 @@
 
 #import "CheckoutViewController.h"
 #import "ThankYouViewController.h"
+#import "Cart.h"
+#import "Item.h"
 #import "TAGDataLayer.h"
 #import "TAGManager.h"
 
@@ -53,11 +55,14 @@
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes"
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
+                                                              //    Push event tag transaction complete to dataLayer.
                                                               TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
                                                               [dataLayer push:@{@"event" : @"buttonPressed",
                                                                                 @"eventCategoryName" : @"Button",
                                                                                 @"eventActionName" : @"Pressed",
                                                                                 @"eventLabelName" : @"Checkout Complete"}];
+                                                              //    Push transaction tag to the datalayer.
+                                                              [self purchase];
                                                               ThankYouViewController *thankYouVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ThankYouVC"];
                                                               [self.navigationController pushViewController:thankYouVC animated:true];
                                                           }];
@@ -103,6 +108,49 @@
         return false;
     }
     else {return true;}
+}
+
+-(void)purchase {
+    //  Array to store all purchased items that are organized to be pushed to the dataLayer.
+    NSMutableArray *purchaseArray = [[NSMutableArray alloc] init];
+    //  Pulling items from the cart into the array that will be pushed to the dataLayer.
+    for (Item *item in [Cart singleton].cartArray) {
+        NSString *costString = [NSString stringWithFormat:@"%ld", (long)item.cost];
+        NSString *countString = [NSString stringWithFormat:@"%ld", (long)item.count];
+        [purchaseArray addObject:@{@"name" : item.name,
+                                   @"sku" : item.sku,
+                                   @"category" : item.category,
+                                   @"price" : costString,
+                                   @"currency" : @"USD",
+                                   @"quantity" : countString}];
+    }
+    
+    //  Push transaction with transaction items to the dataLayer.
+    int r = arc4random();
+    NSString *transactionId = [NSString stringWithFormat:@"%f-%d", NSDate.date.timeIntervalSince1970, r];
+    NSString *totalString = [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total];
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:@{@"event" : @"transactionComplete",
+                      @"transactionId" : transactionId,
+                      @"transactionTotal" : totalString,
+                      @"transactionAffiliation" : @"Analytics Pros Fruit Stand",
+                      @"transactionTax" : @"6.5",
+                      @"transactionShipping" : @"5",
+                      @"transactionCurrency" : @"USD",
+                      @"transactionProducts" : purchaseArray}];
+    
+    //  Reset transaction fields to null after pushing transaction. This is recommended because the data layer is persistent.
+    [dataLayer push:@{@"event" : [NSNull null],
+                      @"transactionId" : [NSNull null],
+                      @"transactionTotal" : [NSNull null],
+                      @"transactionAffiliation" : [NSNull null],
+                      @"transactionTax" : [NSNull null],
+                      @"transactionShipping" : [NSNull null],
+                      @"transactionCurrency" : [NSNull null],
+                      @"transactionProducts" : [NSNull null]}];
+    
+    
+    
 }
 
 @end
