@@ -69,11 +69,13 @@
 }
 
 - (IBAction)cartButtonPressed:(id)sender {
+    NSNumber *numberOfItems = [[NSNumber alloc] initWithInteger:[Cart singleton].totalNumberOfItemsInCart];
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"buttonPressed",
                       @"eventCategoryName" : @"Button",
                       @"eventActionName" : @"Pressed",
-                      @"eventLabelName" : self.cartBarButtonItem.title}];
+                      @"eventLabelName" : @"Cart",
+                      @"eventValueName" : numberOfItems}];
                       
     CartViewController *cartVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CartVC"];
     [self.navigationController pushViewController:cartVC animated:true];

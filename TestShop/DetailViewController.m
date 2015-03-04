@@ -48,11 +48,11 @@
     self.numberInCartLabel.text = [NSString stringWithFormat:@"%ld in Cart", (long)self.item.count];
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     NSString *eventLabelName = [NSString stringWithFormat:@"%@ put in Cart", self.item.name];
-//    [dataLayer push:@{@"event" : @"buttonPressed",
-//                      @"eventCategoryName" : @"Button",
-//                      @"eventActionName" : @"Pressed",
-//                      @"eventLabelName" :  eventLabelName,
-//                      @"eventValueName" : @1}];
+    [dataLayer push:@{@"event" : @"buttonPressed",
+                      @"eventCategoryName" : @"Button",
+                      @"eventActionName" : @"Pressed",
+                      @"eventLabelName" :  eventLabelName,
+                      @"eventValueName" : @1}];
 }
 
 @end
