@@ -53,13 +53,22 @@
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes"
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
+                                                              TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+                                                              [dataLayer push:@{@"event" : @"buttonPressed",
+                                                                                @"eventCategoryName" : @"Button",
+                                                                                @"eventActionName" : @"Pressed",
+                                                                                @"eventLabelName" : @"Checkout Complete"}];
                                                               ThankYouViewController *thankYouVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ThankYouVC"];
                                                               [self.navigationController pushViewController:thankYouVC animated:true];
                                                           }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
                                                          style:UIAlertActionStyleCancel
                                                        handler:^(UIAlertAction *action) {
-                                                           
+                                                           TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+                                                           [dataLayer push:@{@"event" : @"buttonPressed",
+                                                                             @"eventCategoryName" : @"Button",
+                                                                             @"eventActionName" : @"Pressed",
+                                                                             @"eventLabelName" : @"Cancel Checkout"}];
                                                        }];
         [alertController addAction:yesAction];
         [alertController addAction:cancel];
@@ -69,9 +78,15 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
                                                                                  message:@"Please Fill Out All Fields"
                                                                           preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Confirm"
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
                                                          style:UIAlertActionStyleCancel
-                                                       handler:nil];
+                                                       handler:^(UIAlertAction *action) {
+                                                           TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+                                                           [dataLayer push:@{@"event" : @"buttonPressed",
+                                                                             @"eventCategoryName" : @"Button",
+                                                                             @"eventActionName" : @"Pressed",
+                                                                             @"eventLabelName" : @"Fields not Filled"}];
+                                                       }];
         [alertController addAction:cancel];
         [self presentViewController:alertController animated:true completion:nil];
     }

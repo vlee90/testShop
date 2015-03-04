@@ -111,6 +111,12 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     Shop *shop = [Shop singleton];
     Item *item = [shop.shopItems objectAtIndex:indexPath.row];
+    NSString *touchedItem = [NSString stringWithFormat:@"Touched %@", item.name];
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:@{@"event" : @"buttonPressed",
+                      @"eventCategoryName" : @"Button",
+                      @"eventActionName" : @"Pressed",
+                      @"eventLabelName" : touchedItem}];
     DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     detailVC.item = item;
     

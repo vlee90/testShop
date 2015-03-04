@@ -38,6 +38,11 @@
 }
 
 - (IBAction)returnButtonPressed:(id)sender {
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:@{@"event" : @"buttonPressed",
+                      @"eventCategoryName" : @"Button",
+                      @"eventActionName" : @"Pressed",
+                      @"eventLabelName" : @"Resume Shopping"}];
     [self.navigationController popToRootViewControllerAnimated:true];
 }
 
