@@ -37,25 +37,27 @@
     self.navigationItem.rightBarButtonItem = checkoutButton;
     
     [[Cart singleton] calculateTotal];
-    [[Cart singleton] prepareCartArrayForEcommerce];
     self.totalLabel.text = [NSString stringWithFormat:@"Total: $%ld.00", (long)[Cart singleton].total];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-//    [dataLayer push:@{@"event" : @"openScreen",
-//                      @"screenName" : self.screenName,
-//                      @"ecommerce" : @{
-//                              @"checkout" : @{
-//                                      @"actionField" : @{
-//                                              @"step" : @1
-//                                              },
-//                                      @"products" : [Cart singleton].cartArrayForEcommerce
-//                                      }
-//                              }
-//                      }
-//     ];
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:@{@"event" : @"openScreen",
+                      @"screenName" : self.screenName}];
+    NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
+    
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
+                      @"ecommerce" : @{
+                              @"checkout" : @{
+                                      @"actionField" : @{
+                                              @"step" : @1
+                                              },
+                                      @"products" : productArray
+                                      }
+                              }
+                      }
+     ];
 }
 
 -(void)checkoutButtonPressed:(id)sender {

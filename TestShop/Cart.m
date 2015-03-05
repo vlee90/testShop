@@ -39,12 +39,13 @@
     }
 }
 
--(void)prepareCartArrayForEcommerce {
+-(NSArray *)ecommerceCartArray {
     //  Pulling items from the cart into the array that will be pushed to the dataLayer.
+    NSMutableArray * cartArrayForEcommerce = [NSMutableArray new];
     for (Item *item in [Cart singleton].cartArray) {
         NSString *costString = [NSString stringWithFormat:@"%ld", (long)item.cost];
         NSString *countString = [NSString stringWithFormat:@"%ld", (long)item.count];
-        [self.cartArrayForEcommerce addObject:@{@"name" : item.name,
+        [cartArrayForEcommerce addObject:@{@"name" : item.name,
                                    @"sku" : item.sku,
                                    @"category" : item.category,
                                    @"price" : costString,
@@ -56,6 +57,7 @@
                                    @"quantity" : countString,
                                    @"coupon" : @""}];
     }
+    return cartArrayForEcommerce;
 }
 
 -(NSInteger)totalNumberOfItemsInCart {

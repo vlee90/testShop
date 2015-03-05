@@ -101,7 +101,7 @@
     cell.countLabel.text = [NSString stringWithFormat:@"%ld", (long)item.count];
     [cell.countLabel.layer setCornerRadius:5];
     [cell.countLabel.layer setMasksToBounds: true];
-    NSDictionary *impressionDictionary = @{@"event" : @"impressionSeen",
+    NSDictionary *impressionDictionary = @{@"event" : @"EEscreenSeen",
                                            @"ecommerce" : @{
                                                    @"impressions" : @[
                                                            @{@"name" : item.name,
@@ -129,27 +129,26 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     Shop *shop = [Shop singleton];
     Item *item = [shop.shopItems objectAtIndex:indexPath.row];
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    NSDictionary *productTouchedDictionary =  @{@"event" : @"productTouched",
+                                                @"eventLabelName" : item.name,
+                                                @"ecommerce" : @{
+                                                        @"click" : @{
+                                                                @"actionField" : @{
+                                                                        @"list" : @"Front Page Shop"
+                                                                        },
+                                                                @"products" : @[
+                                                                        @{@"name" : item.name,
+                                                                          @"id" : item.sku,
+                                                                          @"price" : [NSString stringWithFormat:@"%ld", (long)item.cost],
+                                                                          @"brand" : @"Analytics Pros",
+                                                                          @"category" : item.category,
+                                                                          @"variant" : item.varient}
+                                                                        ]
+                                                                }
+                                                        }
+                                                };
+    [self containerStateForkPushDictionary:productTouchedDictionary];
     
-    [dataLayer push:@{@"event" : @"productTouched",
-                      @"eventLabelName" : item.name,
-                      @"ecommerce" : @{
-                              @"click" : @{
-                                      @"actionField" : @{
-                                              @"list" : @"Front Page Shop"
-                                              },
-                                      @"products" : @[
-                                              @{@"name" : item.name,
-                                                @"id" : item.sku,
-                                                @"price" : [NSString stringWithFormat:@"%ld", (long)item.cost],
-                                                @"brand" : @"Analytics Pros",
-                                                @"category" : item.category,
-                                                @"variant" : item.varient}
-                                              ]
-                                      }
-                              }
-                      }
-     ];
     DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     detailVC.item = item;
     

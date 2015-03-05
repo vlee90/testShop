@@ -42,7 +42,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[Cart singleton] prepareCartArrayForEcommerce];
+    
+    NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
                       @"screenName" : self.screenName,
@@ -51,7 +52,7 @@
                                       @"actionField" : @{
                                               @"step" : @2
                                               },
-                                      @"products" : [Cart singleton].cartArrayForEcommerce
+                                      @"products" : productArray
                                       }
                               }
                       }
@@ -68,6 +69,7 @@
                                                           handler:^(UIAlertAction *action) {
                                                               int r = arc4random();
                                                               NSString *transactionId = [NSString stringWithFormat:@"%f-%d", NSDate.date.timeIntervalSince1970, r];
+                                                              NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
                                                               TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
                                                               [dataLayer push:@{@"event" : @"transactionComplete",
                                                                                 @"eventLabelName" : @"Checkout Complete",
@@ -81,7 +83,7 @@
                                                                                                         @"tax" : [NSString stringWithFormat:@"%f", (long)[Cart singleton].total * 0.065],
                                                                                                         @"shipping" : @"5",
                                                                                                         },
-                                                                                                @"products" : [Cart singleton].cartArrayForEcommerce
+                                                                                                @"products" : productArray
                                                                                                 }
                                                                                         }
                                                                                 }
