@@ -27,6 +27,9 @@
 
 @property (strong, nonatomic) NSString *screenName;
 
+@property (strong, nonatomic) NSMutableArray *dataLayerPreLoadedArray;
+@property BOOL isContainerOpen;
+
 @end
 
 @implementation ShopViewController
@@ -36,6 +39,7 @@
     
     //  Setting GTM DataLayer Values for DataLayer Macros. Shop View will the the value for the "screenName" key.
     self.screenName = @"Shop View";
+    self.isContainerOpen = false;
     
     NSLog(@"viewDidLoad");
     
@@ -43,11 +47,16 @@
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"ItemCell"];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    
+    self.dataLayerPreLoadedArray = [NSMutableArray new];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
+    NSDictionary *screenViewDictionary = @{@"event" : @"openScreen",
+                                           @"screenName" : self.screenName};
+    [self containerStateForkPushDictionary:screenViewDictionary];
     
     [self.collectionView reloadData];
     NSInteger totalNumberOfItems = [[Cart singleton] totalNumberOfItemsInCart];
@@ -62,20 +71,24 @@
         appDelegate.container = container;
         [appDelegate.container refresh];
         NSLog(@"Container availiable");
+        self.isContainerOpen = true;
         TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-        [dataLayer push:@{@"event" : @"openScreen",
-                          @"screenName" : self.screenName}];
+        
+        //  Loads any hits that were fired before the container was ready.
+        for (NSInteger i = 0; i < self.dataLayerPreLoadedArray.count; i++) {
+            [dataLayer push:[self.dataLayerPreLoadedArray objectAtIndex:i]];
+        }
     });
 }
 
 - (IBAction)cartButtonPressed:(id)sender {
     NSNumber *numberOfItems = [[NSNumber alloc] initWithInteger:[Cart singleton].totalNumberOfItemsInCart];
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    [dataLayer push:@{@"event" : @"buttonPressed",
-                      @"eventCategoryName" : @"Button",
-                      @"eventActionName" : @"Pressed",
-                      @"eventLabelName" : @"Cart",
-                      @"eventValueName" : numberOfItems}];
+    NSDictionary *cartButtonDictionary = @{@"event" : @"buttonPressed",
+                                           @"eventCategoryName" : @"Button",
+                                           @"eventActionName" : @"Pressed",
+                                           @"eventLabelName" : @"Cart",
+                                           @"eventValueName" : numberOfItems};
+    [self containerStateForkPushDictionary:cartButtonDictionary];
                       
     CartViewController *cartVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CartVC"];
     [self.navigationController pushViewController:cartVC animated:true];
@@ -89,19 +102,25 @@
     cell.countLabel.text = [NSString stringWithFormat:@"%ld", (long)item.count];
     [cell.countLabel.layer setCornerRadius:5];
     [cell.countLabel.layer setMasksToBounds: true];
-//    NSString *itemCostString = [NSString stringWithFormat:@"%ld", (long)item.cost];
-//    NSNumber *position = [[NSNumber alloc] initWithDouble:indexPath.row];
-//    NSDictionary *itemDictionary =  @{@"name" : item.name,
-//                                      @"id" : item.sku,
-//                                      @"price" : itemCostString,
-//                                      @"brand" : item.brand,
-//                                      @"category" : item.category,
-//                                      @"varient" : item.varient,
-//                                      @"list" : @"Front Page",
-//                                      @"position" : position};
-//    [self.frontPageItemMutableArray addObject:itemDictionary];
+    NSDictionary *impressionDictionary = @{@"event" : @"impressionSeen",
+                                           @"ecommerce" : @{
+                                                   @"impressions" : @[
+                                                           @{@"name" : item.name,
+                                                             @"id" : item.sku,
+                                                             @"price" : [NSString stringWithFormat:@"%ld", (long)item.cost],
+                                                             @"brand" : item.brand,
+                                                             @"category" : item.category,
+                                                             @"variant" : item.varient,
+                                                             @"list" : @"Front Page Shop",
+                                                             @"position" : [[NSNumber alloc] initWithInteger:indexPath.row]
+                                                             }
+                                                           ]
+                                                   }
+                                           };
+    [self containerStateForkPushDictionary:impressionDictionary];
     return cell;
 }
+
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     Shop *shop = [Shop singleton];
@@ -111,16 +130,43 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     Shop *shop = [Shop singleton];
     Item *item = [shop.shopItems objectAtIndex:indexPath.row];
-    NSString *touchedItem = [NSString stringWithFormat:@"Touched %@", item.name];
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    [dataLayer push:@{@"event" : @"buttonPressed",
-                      @"eventCategoryName" : @"Button",
-                      @"eventActionName" : @"Pressed",
-                      @"eventLabelName" : touchedItem}];
+    
+    [dataLayer push:@{@"event" : @"productTouched",
+                      @"eventLabelName" : item.name,
+                      @"ecommerce" : @{
+                              @"click" : @{
+                                      @"actionField" : @{
+                                              @"list" : @"Front Page Shop"
+                                              },
+                                      @"products" : @[
+                                              @{@"name" : item.name,
+                                                @"id" : item.sku,
+                                                @"price" : [NSString stringWithFormat:@"%ld", (long)item.cost],
+                                                @"brand" : @"Analytics Pros",
+                                                @"category" : item.category,
+                                                @"variant" : item.varient}
+                                              ]
+                                      }
+                              }
+                      }
+     ];
     DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     detailVC.item = item;
     
     [self.navigationController pushViewController:detailVC animated:true];
+}
+
+-(void)containerStateForkPushDictionary:(NSDictionary *)dictionary {
+    if (self.isContainerOpen) {
+        //  Container is open so dictionary will be pushed.
+        TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+        [dataLayer push:dictionary];
+    }
+    else {
+        //  Will push dictionary when container is available.
+        [self.dataLayerPreLoadedArray addObject:dictionary];
+    }
 }
 
 

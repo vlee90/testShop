@@ -32,7 +32,25 @@
     [super viewWillAppear:animated];
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName}];
+                      @"screenName" : self.screenName,
+                      @"ecommerce" : @{
+                              @"detail" : @{
+                                  @"actionField" : @{
+                                          @"list" : @"Front Page Shop"
+                                          },
+                                  @"products" : @[
+                                          @{@"name" : self.item.name,
+                                            @"id" : self.item.sku,
+                                            @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
+                                            @"brand" : self.item.brand,
+                                            @"category" : self.item.category,
+                                            @"variant" : self.item.varient
+                                            }
+                                          ]
+                                  }
+                              }
+                      }
+     ];
 }
 
 -(IBAction)buyButtonPressed:(id)sender {
@@ -47,12 +65,25 @@
     }
     self.numberInCartLabel.text = [NSString stringWithFormat:@"%ld in Cart", (long)self.item.count];
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    NSString *eventLabelName = [NSString stringWithFormat:@"%@ put in Cart", self.item.name];
-    [dataLayer push:@{@"event" : @"buttonPressed",
-                      @"eventCategoryName" : @"Button",
-                      @"eventActionName" : @"Pressed",
-                      @"eventLabelName" :  eventLabelName,
-                      @"eventValueName" : @1}];
+    [dataLayer push:@{@"event" : @"addToCart",
+                      @"eventLabelName" :  self.item.name,
+                      @"ecommerce" : @{
+                              @"currencyCode" : @"USD",
+                              @"add" : @{
+                                      @"products" : @[
+                                              @{@"name" : self.item.name,
+                                                @"id" : self.item.sku,
+                                                @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
+                                                @"brand" : self.item.brand,
+                                                @"category" : self.item.category,
+                                                @"variant" : self.item.varient,
+                                                @"quantity" : @1
+                                              }
+                                              ]
+                                      }
+                              }
+                      }
+     ];
 }
 
 @end

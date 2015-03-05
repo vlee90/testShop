@@ -39,6 +39,25 @@
     }
 }
 
+-(void)prepareCartArrayForEcommerce {
+    //  Pulling items from the cart into the array that will be pushed to the dataLayer.
+    for (Item *item in [Cart singleton].cartArray) {
+        NSString *costString = [NSString stringWithFormat:@"%ld", (long)item.cost];
+        NSString *countString = [NSString stringWithFormat:@"%ld", (long)item.count];
+        [self.cartArrayForEcommerce addObject:@{@"name" : item.name,
+                                   @"sku" : item.sku,
+                                   @"category" : item.category,
+                                   @"price" : costString,
+                                   @"currency" : @"USD",
+                                   @"quantity" : countString,
+                                   @"brand" : item.brand,
+                                   @"category" : item.category,
+                                   @"variant" : item.varient,
+                                   @"quantity" : countString,
+                                   @"coupon" : @""}];
+    }
+}
+
 -(NSInteger)totalNumberOfItemsInCart {
     NSInteger totalNumberOfItems = 0;
     for (int i = 0; i < self.cartArray.count; i++) {
