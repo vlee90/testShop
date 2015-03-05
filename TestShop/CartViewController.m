@@ -48,6 +48,9 @@
     NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
     
     [dataLayer push:@{@"event" : @"EEscreenSeen",
+                      @"ecommerce" : [NSNull null]}];
+    
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : @{
                               @"checkout" : @{
                                       @"actionField" : @{

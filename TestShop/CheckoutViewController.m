@@ -47,11 +47,16 @@
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
                       @"screenName" : self.screenName}];
+    
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
+                      @"ecommerce" : [NSNull null]}];
+    
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : @{
                               @"checkout" : @{
                                       @"actionField" : @{
-                                              @"step" : @2
+                                              @"step" : @2,
+                                              @"option" : @"Credit Card"
                                               },
                                       @"products" : productArray
                                       }

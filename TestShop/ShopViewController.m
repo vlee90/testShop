@@ -147,8 +147,10 @@
                                                                 }
                                                         }
                                                 };
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    [dataLayer push:productTouchedDictionary];
     
-    [self containerStateForkPushDictionary:productTouchedDictionary];
+//    [self containerStateForkPushDictionary:productTouchedDictionary];
     
     DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     detailVC.item = item;
