@@ -74,6 +74,8 @@
                                                               NSString *transactionId = [NSString stringWithFormat:@"%f-%d", NSDate.date.timeIntervalSince1970, r];
                                                               NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
                                                               TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+                                                              [dataLayer push:@{@"event" : @"EEscreenSeen",
+                                                                                @"ecommerce" : [NSNull null]}];
                                                               [dataLayer push:@{@"event" : @"transactionComplete",
                                                                                 @"eventLabelName" : @"Checkout Complete",
                                                                                 @"eventValueName" : [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total],

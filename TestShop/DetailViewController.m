@@ -53,8 +53,6 @@
                               }
                       }
      ];
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];
 }
 
 -(IBAction)buyButtonPressed:(id)sender {
@@ -68,41 +66,32 @@
         [cart.cartArray addObject:self.item];
     }
     self.numberInCartLabel.text = [NSString stringWithFormat:@"%ld in Cart", (long)self.item.count];
+    
+    
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"addToCart",
                       @"ecommerce" : @{
+                              @"actionField" : @{
+                                      @"list" : @"Front Page Shop"
+                                      },
+                              @"currencyCode" : @"USD",
                               @"add" : @{
                                       @"products" : @[
-                                              @{@"name" : @"Mac Apple!"
+                                              @{@"name" : self.item.name,
+                                                @"id" : self.item.sku,
+                                                @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
+                                                @"brand" : self.item.brand,
+                                                @"category" : self.item.category,
+                                                @"variant" : self.item.varient,
+                                                @"quantity" : @1
                                                 }
                                               ]
                                       }
                               }
                       }
      ];
+
     [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];
-//    [dataLayer push:@{@"event" : @"addToCart",
-//                      @"ecommerce" : @{
-//                              @"actionField" : @{
-//                                      @"list" : @"Front Page Shop"
-//                                      },
-//                              @"currencyCode" : @"USD",
-//                              @"add" : @{
-//                                      @"products" : @[
-//                                              @{@"name" : self.item.name,
-//                                                @"id" : self.item.sku,
-//                                                @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
-//                                                @"brand" : self.item.brand,
-//                                                @"category" : self.item.category,
-//                                                @"variant" : self.item.varient,
-//                                                @"quantity" : @1
-//                                              }
-//                                              ]
-//                                      }
-//                              }
-//                      }
-//     ];
-}
+                      @"ecommerce" : [NSNull null]}];}
 
 @end

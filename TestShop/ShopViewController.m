@@ -147,6 +147,7 @@
                                                                 }
                                                         }
                                                 };
+    
     [self containerStateForkPushDictionary:productTouchedDictionary];
     
     DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
