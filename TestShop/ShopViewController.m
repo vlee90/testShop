@@ -157,15 +157,17 @@
 
 -(void)containerStateForkPushDictionary:(NSDictionary *)dictionary {
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     if (appDelegate.isContainerOpen) {
         //  Container is open so dictionary will be pushed.
-        TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
         [dataLayer push:dictionary];
     }
     else {
         //  Will push dictionary when container is available.
         [self.dataLayerPreLoadedArray addObject:dictionary];
     }
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
+                      @"ecommerce" : [NSNull null]}];
 }
 
 

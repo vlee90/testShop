@@ -58,6 +58,8 @@
                               }
                       }
      ];
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
+                      @"ecommerce" : [NSNull null]}];
 }
 
 -(void)checkoutButtonPressed:(id)sender {

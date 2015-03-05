@@ -34,7 +34,8 @@
     [super viewWillAppear:animated];
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName,
+                      @"screenName" : self.screenName}];
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : @{
                               @"checkout" : @{
                                       @"actionField" : @{
@@ -44,6 +45,8 @@
                               }
                       }
      ];
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
+                      @"ecommerce" : [NSNull null]}];
 }
 
 - (IBAction)returnButtonPressed:(id)sender {

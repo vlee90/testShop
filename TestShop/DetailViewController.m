@@ -33,7 +33,8 @@
     [super viewWillAppear:animated];
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName,
+                      @"screenName" : self.screenName}];
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : @{
                               @"detail" : @{
                                   @"actionField" : @{
@@ -52,6 +53,8 @@
                               }
                       }
      ];
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
+                      @"ecommerce" : [NSNull null]}];
 }
 
 -(IBAction)buyButtonPressed:(id)sender {
@@ -67,24 +70,39 @@
     self.numberInCartLabel.text = [NSString stringWithFormat:@"%ld in Cart", (long)self.item.count];
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"addToCart",
-                      @"eventLabelName" :  self.item.name,
                       @"ecommerce" : @{
-                              @"currencyCode" : @"USD",
                               @"add" : @{
                                       @"products" : @[
-                                              @{@"name" : self.item.name,
-                                                @"id" : self.item.sku,
-                                                @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
-                                                @"brand" : self.item.brand,
-                                                @"category" : self.item.category,
-                                                @"variant" : self.item.varient,
-                                                @"quantity" : @1
-                                              }
+                                              @{@"name" : @"Mac Apple!"
+                                                }
                                               ]
                                       }
                               }
                       }
      ];
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
+                      @"ecommerce" : [NSNull null]}];
+//    [dataLayer push:@{@"event" : @"addToCart",
+//                      @"ecommerce" : @{
+//                              @"actionField" : @{
+//                                      @"list" : @"Front Page Shop"
+//                                      },
+//                              @"currencyCode" : @"USD",
+//                              @"add" : @{
+//                                      @"products" : @[
+//                                              @{@"name" : self.item.name,
+//                                                @"id" : self.item.sku,
+//                                                @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
+//                                                @"brand" : self.item.brand,
+//                                                @"category" : self.item.category,
+//                                                @"variant" : self.item.varient,
+//                                                @"quantity" : @1
+//                                              }
+//                                              ]
+//                                      }
+//                              }
+//                      }
+//     ];
 }
 
 @end
