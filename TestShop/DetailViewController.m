@@ -34,6 +34,8 @@
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
                       @"screenName" : self.screenName}];
+    
+    
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : @{
                               @"detail" : @{
@@ -53,6 +55,8 @@
                               }
                       }
      ];
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
+                      @"ecommerce" : [NSNull null]}];
 }
 
 -(IBAction)buyButtonPressed:(id)sender {
@@ -90,7 +94,6 @@
                               }
                       }
      ];
-
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : [NSNull null]}];}
 
