@@ -28,7 +28,7 @@
 @property (strong, nonatomic) NSString *screenName;
 
 @property (strong, nonatomic) NSMutableArray *dataLayerPreLoadedArray;
-@property BOOL isContainerOpen;
+
 
 @end
 
@@ -39,7 +39,6 @@
     
     //  Setting GTM DataLayer Values for DataLayer Macros. Shop View will the the value for the "screenName" key.
     self.screenName = @"Shop View";
-    self.isContainerOpen = false;
     
     NSLog(@"viewDidLoad");
     
@@ -71,7 +70,7 @@
         appDelegate.container = container;
         [appDelegate.container refresh];
         NSLog(@"Container availiable");
-        self.isContainerOpen = true;
+        appDelegate.isContainerOpen = true;
         TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
         
         //  Loads any hits that were fired before the container was ready.
@@ -158,7 +157,8 @@
 }
 
 -(void)containerStateForkPushDictionary:(NSDictionary *)dictionary {
-    if (self.isContainerOpen) {
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.isContainerOpen) {
         //  Container is open so dictionary will be pushed.
         TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
         [dataLayer push:dictionary];

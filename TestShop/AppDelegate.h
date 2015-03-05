@@ -20,6 +20,8 @@
 @property (strong, nonatomic) TAGManager *tagManager;
 @property (strong, nonatomic) TAGContainer *container;
 
+@property BOOL isContainerOpen;
+
 
 @end
 

@@ -20,6 +20,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.isContainerOpen = false;
+    
     //  Get singleton of TAGManager
     self.tagManager = [TAGManager instance];
     
@@ -36,6 +38,7 @@
                                    notifier:(ShopViewController<TAGContainerOpenerNotifier> *)navController.viewControllers[0]];
     NSTimeInterval dispatchTime = 5;
     [self.tagManager setDispatchInterval:dispatchTime];
+
     return YES;
 }
 

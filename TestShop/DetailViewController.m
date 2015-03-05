@@ -26,6 +26,7 @@
     self.costLabel.text = [NSString stringWithFormat:@"$%ld.00", (long)self.item.cost];
     self.descriptionLabel.text = self.item.itemDescription;
     self.numberInCartLabel.text = [NSString stringWithFormat:@"%ld in Cart", (long)self.item.count];
+    NSLog(@"ViewDIDLOAD");
 }
 
 -(void)viewWillAppear:(BOOL)animated {
