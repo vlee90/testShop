@@ -28,6 +28,10 @@
     //  Set Logger Level
     [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
     
+#ifdef DEBUG
+//    self.tagManager.refreshMode = kTAGRefreshModeDefaultContainer;
+#endif
+    
     UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
     
     //Open Container
@@ -38,7 +42,7 @@
                                    notifier:(ShopViewController<TAGContainerOpenerNotifier> *)navController.viewControllers[0]];
     NSTimeInterval dispatchTime = 5;
     [self.tagManager setDispatchInterval:dispatchTime];
-
+    
     return YES;
 }
 

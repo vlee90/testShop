@@ -60,9 +60,9 @@
 
 //Fires when container finishes loading
 -(void)containerAvailable:(TAGContainer *)container {
-    //  Ensure we get back onto main thread - containerAvailable runs async on any thread.
+    //  continaerAvailable will run code on any thread. GCD will code ensures that code is dispatched to main thread.
     dispatch_async(dispatch_get_main_queue(), ^{
-        //  Set the appDelegate property
+        //  Maintain reference to container
         AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
         appDelegate.container = container;
         
