@@ -383,34 +383,64 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UCv-bo-cHI">
+                                <rect key="frame" x="66" y="412" width="51" height="31"/>
+                                <connections>
+                                    <action selector="shippingSwitchValuedChanged:" destination="zfm-rZ-6Zl" eventType="valueChanged" id="AA5-Xg-LsP"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free Shipping Deal!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CC2-EE-6s2">
+                                <rect key="frame" x="135" y="417" width="150" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="CC2-EE-6s2" firstAttribute="leading" secondItem="UCv-bo-cHI" secondAttribute="trailing" constant="20" id="4iU-oF-8zH"/>
                             <constraint firstAttribute="trailing" secondItem="H9A-te-7hw" secondAttribute="trailing" id="56z-hg-ojg"/>
                             <constraint firstItem="YiB-T9-CjR" firstAttribute="leading" secondItem="UDk-ZS-TgB" secondAttribute="leadingMargin" constant="50" id="8FB-B0-Zf0"/>
                             <constraint firstItem="fZz-QU-tlg" firstAttribute="top" secondItem="YiB-T9-CjR" secondAttribute="bottom" constant="10" id="9BI-TD-oIo"/>
+                            <constraint firstItem="UCv-bo-cHI" firstAttribute="top" secondItem="Jca-tQ-9EQ" secondAttribute="bottom" constant="10" id="Aj1-MX-efM"/>
+                            <constraint firstItem="YiB-T9-CjR" firstAttribute="centerY" secondItem="CC2-EE-6s2" secondAttribute="centerY" id="BVp-Tz-6tx"/>
                             <constraint firstItem="H9A-te-7hw" firstAttribute="leading" secondItem="UDk-ZS-TgB" secondAttribute="leading" id="Elh-NP-3q5"/>
                             <constraint firstItem="YiB-T9-CjR" firstAttribute="leading" secondItem="2Do-za-vRl" secondAttribute="leading" id="Faj-ov-qWv"/>
                             <constraint firstItem="BGe-8G-utR" firstAttribute="leading" secondItem="UDk-ZS-TgB" secondAttribute="leading" id="FgS-Lv-Dx6"/>
                             <constraint firstItem="YiB-T9-CjR" firstAttribute="trailing" secondItem="fSw-uQ-iGz" secondAttribute="trailing" id="GU3-OQ-yNz"/>
                             <constraint firstItem="qJ4-gd-FTR" firstAttribute="leading" secondItem="Jca-tQ-9EQ" secondAttribute="trailing" constant="20" id="GY2-cN-q4f"/>
+                            <constraint firstItem="CC2-EE-6s2" firstAttribute="leading" secondItem="YiB-T9-CjR" secondAttribute="trailing" constant="10" id="GnL-IF-7Nz"/>
+                            <constraint firstItem="UCv-bo-cHI" firstAttribute="leading" secondItem="Jca-tQ-9EQ" secondAttribute="leading" id="JHY-gj-zMu"/>
                             <constraint firstItem="BGe-8G-utR" firstAttribute="top" secondItem="4Lw-3t-htn" secondAttribute="bottom" constant="50" id="LWs-Mu-gCQ"/>
+                            <constraint firstItem="UCv-bo-cHI" firstAttribute="centerY" secondItem="fSw-uQ-iGz" secondAttribute="centerY" id="NGl-sC-x0Z"/>
                             <constraint firstItem="fSw-uQ-iGz" firstAttribute="top" secondItem="YiB-T9-CjR" secondAttribute="bottom" constant="10" id="Oek-BK-tZ8"/>
                             <constraint firstItem="H9A-te-7hw" firstAttribute="top" secondItem="YiB-T9-CjR" secondAttribute="bottom" constant="100" id="PpL-dI-gEw"/>
+                            <constraint firstItem="UCv-bo-cHI" firstAttribute="centerY" secondItem="CC2-EE-6s2" secondAttribute="centerY" id="QGm-k6-c4P"/>
                             <constraint firstAttribute="trailing" secondItem="BGe-8G-utR" secondAttribute="trailing" id="QT7-yQ-ZYE"/>
                             <constraint firstItem="qJ4-gd-FTR" firstAttribute="top" secondItem="Jca-tQ-9EQ" secondAttribute="top" id="QbN-fb-oji"/>
                             <constraint firstItem="Jca-tQ-9EQ" firstAttribute="leading" secondItem="UDk-ZS-TgB" secondAttribute="leadingMargin" constant="50" id="UOG-95-PO8"/>
+                            <constraint firstItem="UCv-bo-cHI" firstAttribute="leading" secondItem="fSw-uQ-iGz" secondAttribute="trailing" constant="10" id="a8b-7C-Vuo"/>
                             <constraint firstItem="Jca-tQ-9EQ" firstAttribute="top" secondItem="H9A-te-7hw" secondAttribute="bottom" constant="50" id="d6t-tk-L3f"/>
                             <constraint firstItem="fSw-uQ-iGz" firstAttribute="leading" secondItem="fZz-QU-tlg" secondAttribute="trailing" constant="10" id="dgT-2u-TlJ"/>
                             <constraint firstItem="2Do-za-vRl" firstAttribute="top" secondItem="fZz-QU-tlg" secondAttribute="bottom" constant="10" id="sMq-aD-Bpk"/>
                             <constraint firstItem="YiB-T9-CjR" firstAttribute="top" secondItem="BGe-8G-utR" secondAttribute="bottom" constant="50" id="uvY-wB-5vc"/>
                             <constraint firstItem="YiB-T9-CjR" firstAttribute="leading" secondItem="fZz-QU-tlg" secondAttribute="leading" id="w9N-yu-MGk"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="BVp-Tz-6tx"/>
+                                <exclude reference="NGl-sC-x0Z"/>
+                                <exclude reference="a8b-7C-Vuo"/>
+                                <exclude reference="GnL-IF-7Nz"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="cityField" destination="fZz-QU-tlg" id="PW9-fN-PbF"/>
                         <outlet property="creditCartNumberField" destination="Jca-tQ-9EQ" id="dYr-gz-Uew"/>
                         <outlet property="cvvField" destination="qJ4-gd-FTR" id="ZKs-k2-m5Q"/>
+                        <outlet property="freeShippingLabel" destination="CC2-EE-6s2" id="4mb-74-g5m"/>
+                        <outlet property="freeShippingSwitch" destination="UCv-bo-cHI" id="DE0-vK-EBI"/>
                         <outlet property="paymentLabel" destination="H9A-te-7hw" id="Tdz-jf-vhH"/>
                         <outlet property="shippingLabel" destination="BGe-8G-utR" id="orw-HP-DdV"/>
                         <outlet property="stateField" destination="fSw-uQ-iGz" id="nKz-eY-wxr"/>

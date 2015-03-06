@@ -24,6 +24,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *zipCodeField;
 @property (weak, nonatomic) IBOutlet UITextField *cvvField;
 @property (weak, nonatomic) IBOutlet UILabel *paymentLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *freeShippingSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *freeShippingLabel;
+
+@property (strong, nonatomic) NSString *shippingFee;
+@property (strong, nonatomic) NSString *shippingOption;
 
 @end
 
@@ -32,6 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.screenName = @"Checkout View";
+    self.shippingFee = @"5";
+    self.shippingOption = @"Standard Shipping";
     UIBarButtonItem *confirmButton = [[UIBarButtonItem alloc] initWithTitle:@"Confirm"
                                                                     style:UIBarButtonItemStyleDone
                                                                     target:self
@@ -56,7 +63,7 @@
                               @"checkout" : @{
                                       @"actionField" : @{
                                               @"step" : @2,
-                                              @"option" : @"Credit Card"
+                                              @"option" : self.shippingOption,
                                               },
                                       @"products" : productArray
                                       }
@@ -65,6 +72,48 @@
      ];
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : [NSNull null]}];
+    
+    [dataLayer push:@{@"event" : @"EEscreenSeen",
+                      @"ecommerce" : @{
+                              @"promoView" : @{
+                                      @"promotions" : @[
+                                              @{@"id" : @"FREE_SHIPPING_PROMO",
+                                                @"name" : @"Free Shipping Promo",
+                                                @"creative" : @"bottom",
+                                                @"position" : @"slot1"}
+                                              ]
+                                      }
+                              }
+                      }
+     ];
+}
+
+- (IBAction)shippingSwitchValuedChanged:(id)sender {
+    if ([self.freeShippingSwitch isOn]) {
+        self.freeShippingLabel.alpha = 1.0;
+        self.shippingFee = @"0";
+        self.shippingOption = @"Free Shipping";
+        TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+        [dataLayer push:@{@"event" : @"promotionTouched",
+                          @"promoName" : @"Free Shipping Promo",
+                          @"ecommerce" : @{
+                                  @"promoClick" : @{
+                                          @"promotions" : @[
+                                                  @{@"id" : @"FREE_SHIPPING_PROMO",
+                                                    @"name" : @"Free Shipping Promo",
+                                                    @"creative" : @"bottom",
+                                                    @"position" : @"slot1"}
+                                                  ]
+                                          }
+                                  }
+                          }
+         ];
+    }
+    else {
+        self.freeShippingLabel.alpha = 0.2;
+        self.shippingFee = @"5";
+        self.shippingOption = @"Standard Shipping";
+    }
 }
 
 -(void)confirmButtonPressed:(id)sender {
@@ -91,7 +140,7 @@
                                                                                                         @"affiliation" : @"Analytics Pros App Fruit Store",
                                                                                                         @"revenue" : [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total],
                                                                                                         @"tax" : [NSString stringWithFormat:@"%f", (long)[Cart singleton].total * 0.065],
-                                                                                                        @"shipping" : @"5",
+                                                                                                        @"shipping" : self.shippingFee,
                                                                                                         },
                                                                                                 @"products" : productArray
                                                                                                 }
