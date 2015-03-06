@@ -56,7 +56,15 @@
                                       @"actionField" : @{
                                               @"step" : @1
                                               },
-                                      @"products" : productArray
+                                      @"products" : @[
+                                              @{@"name" : @"TEST Apple Mac!",
+                                                @"id" : @"2468",
+                                                @"price" : @"1000",
+                                                @"brand" : @"TEST Apple!",
+                                                @"category" : @"Fruit",
+                                                @"variant" : @"Air",
+                                                @"quantity" : @1}
+                                                ]
                                       }
                               }
                       }
