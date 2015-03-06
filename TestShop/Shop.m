@@ -11,6 +11,7 @@
 
 @implementation Shop
 
+//  Singleton pattern
 +(Shop *)singleton {
     
     static dispatch_once_t pred;
@@ -22,6 +23,8 @@
     return shared;
 }
 
+
+//  Sets all the items in the shop. May need better process if the amount grows.
 -(instancetype)initWithAllItems {
     if (self = [super init]) {
         Item *item0 = [[Item alloc] initWithName:@"Apple"

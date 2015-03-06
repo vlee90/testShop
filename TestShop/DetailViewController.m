@@ -20,22 +20,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //  Set screen name for GTM App View based on ViewController's item.
     self.screenName = [NSString stringWithFormat:@"Detail View - %@", self.item.name];
-    self.imageView.image = self.item.image;
-    self.nameLabel.text = self.item.name;
-    self.costLabel.text = [NSString stringWithFormat:@"$%ld.00", (long)self.item.cost];
-    self.descriptionLabel.text = self.item.itemDescription;
-    self.numberInCartLabel.text = [NSString stringWithFormat:@"%ld in Cart", (long)self.item.count];
-    NSLog(@"ViewDIDLOAD");
+    [self viewDidLoadHelper];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    //  Push screen name and event to fire an App View Tag to the dataLayer.
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
                       @"screenName" : self.screenName}];
     
-    
+    //  Push a dictionary that will create a Enhanced Ecommerce detail hit.
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : @{
                               @"detail" : @{
@@ -55,23 +54,34 @@
                               }
                       }
      ];
+    
+    //  Reset ecommerce values in dataLayer.
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : [NSNull null]}];
 }
 
 -(IBAction)buyButtonPressed:(id)sender {
     Cart *cart = [Cart singleton];
+    
+    //  Increment viewControllers item.
     self.item.count++;
+    
+    //  Increment/add item in cart singleton.
     if ([cart.cartArray containsObject:self.item]) {
+        //  Replace item in cart with incremented item.
         NSInteger index = [cart.cartArray indexOfObject:self.item];
         [cart.cartArray replaceObjectAtIndex:index withObject:self.item];
     }
     else {
+        //Add item if item wasn't in cart.
         [cart.cartArray addObject:self.item];
     }
+    
+    //  Update the UI count.
     self.numberInCartLabel.text = [NSString stringWithFormat:@"%ld in Cart", (long)self.item.count];
     
     
+    //  Push dictionary that will create an add hit when pushed to the dataLayer.
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"addToCart",
                       @"ecommerce" : @{
@@ -94,7 +104,22 @@
                               }
                       }
      ];
+    
+    //  Reset ecommerce values.
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : [NSNull null]}];}
 
+//  Helper function that runs non GTM related code in viewDidLoad.
+-(void)viewDidLoadHelper {
+    self.imageView.image = self.item.image;
+    self.nameLabel.text = self.item.name;
+    self.costLabel.text = [NSString stringWithFormat:@"$%ld.00", (long)self.item.cost];
+    self.descriptionLabel.text = self.item.itemDescription;
+    self.numberInCartLabel.text = [NSString stringWithFormat:@"%ld in Cart", (long)self.item.count];
+}
+
+//  Helper function that runs non GTM related code in viewDidAppear.
+-(void)viewDidAppearHelper {
+    
+}
 @end

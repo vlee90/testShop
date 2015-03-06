@@ -36,28 +36,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //  Sets screen name for App View Hit.
     self.screenName = @"Checkout View";
-    self.shippingFee = @"5";
-    self.shippingOption = @"Standard Shipping";
-    UIBarButtonItem *confirmButton = [[UIBarButtonItem alloc] initWithTitle:@"Confirm"
-                                                                    style:UIBarButtonItemStyleDone
-                                                                    target:self
-                                                                     action:@selector(confirmButtonPressed:)];
-    self.navigationItem.rightBarButtonItem = confirmButton;
+
+    //  Additional non-GTM code.
+    [self viewDidLoadHelper];
     
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    //  Get all products in cart. They are formatted in a way that Enhanced Ecommerce will understand.
     NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
+    
+    //  Sent hit for App View.
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
                       @"screenName" : self.screenName}];
     
+    //  Reset ecommerce values.
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : [NSNull null]}];
     
+    //  Push dictionary that will create a checkout step hit.
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : @{
                               @"checkout" : @{
@@ -70,9 +72,12 @@
                               }
                       }
      ];
+    
+    //  Reset ecommerce values.
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : [NSNull null]}];
     
+    //  Push dictionary that will create a promoView hit.
     [dataLayer push:@{@"event" : @"EEscreenSeen",
                       @"ecommerce" : @{
                               @"promoView" : @{
@@ -88,11 +93,15 @@
      ];
 }
 
+//  Will change shipping state based on Switch Value.
 - (IBAction)shippingSwitchValuedChanged:(id)sender {
     if ([self.freeShippingSwitch isOn]) {
+        //  Free Shipping On
         self.freeShippingLabel.alpha = 1.0;
         self.shippingFee = @"0";
         self.shippingOption = @"Free Shipping";
+        
+        //  Push dictionary to create a promoClick hit.
         TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
         [dataLayer push:@{@"event" : @"promotionTouched",
                           @"promoName" : @"Free Shipping Promo",
@@ -110,6 +119,7 @@
          ];
     }
     else {
+        //  Free Shipping Off
         self.freeShippingLabel.alpha = 0.2;
         self.shippingFee = @"5";
         self.shippingOption = @"Standard Shipping";
@@ -117,19 +127,29 @@
 }
 
 -(void)confirmButtonPressed:(id)sender {
+    //  Checks to see if all TextFields are filled out.
     if ([self checkIfAllFieldsAreFilled]) {
+        //  Create AlertController that will pop up when to double check if user wants to checkout.
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Confirm"
                                                                                  message:@"Are you sure?"
                                                                           preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes"
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
+                                                              //    Random transactionID generater
                                                               int r = arc4random();
                                                               NSString *transactionId = [NSString stringWithFormat:@"%f-%d", NSDate.date.timeIntervalSince1970, r];
+                                                              
+                                                              //    Grab all items in the cart singleton.
                                                               NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
+                                                              
+                                            
+                                                              //    Resets ecommerce values.
                                                               TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
                                                               [dataLayer push:@{@"event" : @"EEscreenSeen",
                                                                                 @"ecommerce" : [NSNull null]}];
+                                                              
+                                                              //    Push dictionary to create a purchase hit.
                                                               [dataLayer push:@{@"event" : @"transactionComplete",
                                                                                 @"eventLabelName" : @"Checkout Complete",
                                                                                 @"eventValueName" : [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total],
@@ -147,14 +167,19 @@
                                                                                         }
                                                                                 }
                                                                ];
+                                                              
+                                                              //    Resets ecommerce values.
                                                               [dataLayer push:@{@"event" : @"EEscreenSeen",
                                                                                 @"ecommerce" : [NSNull null]}];
+                                                              
+                                                              //    Segue to ThankYouViewController.
                                                               ThankYouViewController *thankYouVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ThankYouVC"];
                                                               [self.navigationController pushViewController:thankYouVC animated:true];
                                                           }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
                                                          style:UIAlertActionStyleCancel
                                                        handler:^(UIAlertAction *action) {
+                                                           //   Push dictionary that will create Event hit
                                                            TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
                                                            [dataLayer push:@{@"event" : @"buttonPressed",
                                                                              @"eventCategoryName" : @"Button",
@@ -165,6 +190,7 @@
         [alertController addAction:cancel];
         [self presentViewController:alertController animated:true completion:nil];
     }
+    //  Options if user did not fill out all textFields.
     else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
                                                                                  message:@"Please Fill Out All Fields"
@@ -172,6 +198,7 @@
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
                                                          style:UIAlertActionStyleCancel
                                                        handler:^(UIAlertAction *action) {
+                                                           //   Push dictionary that will create an Event tag.
                                                            TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
                                                            [dataLayer push:@{@"event" : @"buttonPressed",
                                                                              @"eventCategoryName" : @"Button",
@@ -184,6 +211,7 @@
 
 }
 
+//  Checks if all TextFields are filled.
 -(BOOL)checkIfAllFieldsAreFilled {
     if ([self.streetAddressField.text isEqualToString: @""] ||
         [self.creditCartNumberField.text  isEqualToString: @""] ||
@@ -194,6 +222,22 @@
         return false;
     }
     else {return true;}
+}
+
+//  Helper function that runs non GTM related code in viewDidLoad.
+-(void)viewDidLoadHelper {
+    self.shippingFee = @"5";
+    self.shippingOption = @"Standard Shipping";
+    UIBarButtonItem *confirmButton = [[UIBarButtonItem alloc] initWithTitle:@"Confirm"
+                                                                      style:UIBarButtonItemStyleDone
+                                                                     target:self
+                                                                     action:@selector(confirmButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = confirmButton;
+}
+
+//  Helper function that runs non GTM related code in viewDidAppear.
+-(void)viewDidAppearHelper {
+    
 }
 
 @end

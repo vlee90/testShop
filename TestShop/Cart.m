@@ -12,6 +12,7 @@
 
 @implementation Cart
 
+//  Singleton Pattern
 +(Cart *)singleton {
     
     static dispatch_once_t pred;
@@ -30,6 +31,7 @@
     return self;
 }
 
+//  Determiens the total cost of transaction for items in the cart.
 -(void)calculateTotal {
     self.total = 0;
     for (NSInteger i = 0; i < self.cartArray.count; i++) {
@@ -39,6 +41,7 @@
     }
 }
 
+//  Returns an array of all items in the cart that is formatted for Enhanced Ecommerce use.
 -(NSArray *)ecommerceCartArray {
     //  Pulling items from the cart into the array that will be pushed to the dataLayer.
     NSMutableArray * cartArrayForEcommerce = [NSMutableArray new];
@@ -60,6 +63,7 @@
     return cartArrayForEcommerce;
 }
 
+//  Returns the amount of items in the cart.
 -(NSInteger)totalNumberOfItemsInCart {
     NSInteger totalNumberOfItems = 0;
     for (int i = 0; i < self.cartArray.count; i++) {
