@@ -29,6 +29,14 @@
     [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
     
 #ifdef DEBUG
+    //  PREVIEW MODE CODE
+    NSURL *url = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+    if (url != nil) {
+        [self.tagManager previewWithUrl:url];
+    }
+#endif
+    
+#ifdef DEBUG
 //    self.tagManager.refreshMode = kTAGRefreshModeDefaultContainer;
 #endif
     
@@ -45,6 +53,17 @@
     
     return YES;
 }
+
+#ifdef DEBUG
+//  More PREVIEW Code
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([self.tagManager previewWithUrl:url]) {
+        return YES;
+    }
+    return NO;
+}
+#endif
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
