@@ -29,6 +29,7 @@
 
 @property (strong, nonatomic) NSMutableArray *dataLayerPreLoadedArray;
 
+@property BOOL firstLoad;
 
 @end
 
@@ -79,6 +80,10 @@
         for (NSInteger i = 0; i < self.dataLayerPreLoadedArray.count; i++) {
             [dataLayer push:[self.dataLayerPreLoadedArray objectAtIndex:i]];
         }
+        
+        //  Resets the ecommerce values in the dataLayer. This is needed to ensure that values from old hits do not be resent in new hits.
+        [dataLayer push:@{@"event" : @"EEscreenSeen",
+                          @"ecommerce" : [NSNull null]}];
     });
 }
 
@@ -183,15 +188,15 @@
     if (appDelegate.isContainerOpen) {
         //  Container is open so dictionary will be pushed.
         [dataLayer push:dictionary];
+        
+        //  Resets the ecommerce values in the dataLayer. This is needed to ensure that values from old hits do not be resent in new hits.
+        [dataLayer push:@{@"event" : @"EEscreenSeen",
+                          @"ecommerce" : [NSNull null]}];
     }
     else {
         //  Will push dictionary when container is available.
         [self.dataLayerPreLoadedArray addObject:dictionary];
     }
-    
-    //  Resets the ecommerce values in the dataLayer. This is needed to ensure that values from old hits do not be resent in new hits.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];
 }
 
 //  Code that is needed for the ViewController but isn't related to GTM.
@@ -204,12 +209,24 @@
     
     //  Initialize to be loaded
     self.dataLayerPreLoadedArray = [NSMutableArray new];
+    
+    //  Track state of view's loading.
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        self.firstLoad = true;
+    });
 }
 
 //  Code that is needed for the ViewController but isn't related to GTM.
 -(void)viewDidAppearHelper {
     //  Loads new quanitiy values after use puts them into cart in DetailViewController.
-    [self.collectionView reloadData];
+    
+    //  Dependent on BOOL. If not, UICollectionView::reloadData is causing impression hits to be created TWICE on initial app launch. A bit "hacky". Not a great solution.
+    if (self.firstLoad == false) {
+        [self.collectionView reloadData];
+    }
+    self.firstLoad = false;
+
     
     //
     NSInteger totalNumberOfItems = [[Cart singleton] totalNumberOfItemsInCart];

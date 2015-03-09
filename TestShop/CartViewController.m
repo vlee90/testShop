@@ -50,21 +50,13 @@
                       @"ecommerce" : [NSNull null]}];
     
      //  Push a dictionary to that will create a checkout step.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"cartSeen",
                       @"ecommerce" : @{
                               @"checkout" : @{
                                       @"actionField" : @{
                                               @"step" : @1
                                               },
-                                      @"products" : @[
-                                              @{@"name" : @"TEST Apple Mac!",
-                                                @"id" : @"2468",
-                                                @"price" : @"1000",
-                                                @"brand" : @"TEST Apple!",
-                                                @"category" : @"Fruit",
-                                                @"variant" : @"Air",
-                                                @"quantity" : @1}
-                                                ]
+                                      @"products" : productArray
                                       }
                               }
                       }
@@ -111,6 +103,10 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     Cart *cart = [Cart singleton];
     return cart.cartArray.count;
+}
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return true;
 }
 
 //  Helper function that runs non GTM related code in viewDidLoad.

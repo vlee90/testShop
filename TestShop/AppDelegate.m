@@ -28,28 +28,21 @@
     //  Set Logger Level
     [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
     
-#ifdef DEBUG
-    //  PREVIEW MODE CODE
-    NSURL *url = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
-    if (url != nil) {
-        [self.tagManager previewWithUrl:url];
-    }
-#endif
-    
-#ifdef DEBUG
-//    self.tagManager.refreshMode = kTAGRefreshModeDefaultContainer;
-#endif
-    
+    //  If your inital ViewController is dependent on app design. Should be first viewController with viewDidLoad/viewDidAppear, etc.
     UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
     
     //Open Container
+//    NSTimeInterval timeout = 0.000000000000000000000001;
     [TAGContainerOpener openContainerWithId:@"GTM-NJNM8T"
                                  tagManager:self.tagManager
                                    openType:kTAGOpenTypePreferFresh
                                     timeout:nil
                                    notifier:(ShopViewController<TAGContainerOpenerNotifier> *)navController.viewControllers[0]];
+    
+#ifdef DEBUG
     NSTimeInterval dispatchTime = 5;
     [self.tagManager setDispatchInterval:dispatchTime];
+#endif
     
     return YES;
 }

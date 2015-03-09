@@ -60,7 +60,7 @@
                       @"ecommerce" : [NSNull null]}];
     
     //  Push dictionary that will create a checkout step hit.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"shippingPaymentSeen",
                       @"ecommerce" : @{
                               @"checkout" : @{
                                       @"actionField" : @{

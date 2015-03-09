@@ -58,7 +58,8 @@
                                    @"category" : item.category,
                                    @"variant" : item.varient,
                                    @"quantity" : countString,
-                                   @"coupon" : @""}];
+//                                   @"coupon" : @""
+                                           }];
     }
     return cartArrayForEcommerce;
 }
