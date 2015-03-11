@@ -7,9 +7,12 @@
 //
 
 #import "AppDelegate.h"
-#import <AnalyticsEngine/AnalyticsEngine.h>
+
+//  Import AnalyticsEngine Module
+@import AnalyticsEngine;
 
 @interface AppDelegate ()
+
 
 @end
 
@@ -17,7 +20,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+    
+    //  Pass GTM Container ID to Analytics Engine. Beings container opening process.
+    [AnalyticsEngine startEngineWithContainerID:@"GTM-NJNM8T"];
+    
     return YES;
 }
 

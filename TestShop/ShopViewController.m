@@ -14,12 +14,12 @@
 #import "Shop.h"
 #import "CartViewController.h"
 
+@import AnalyticsEngine;
+
 @interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cartBarButtonItem;
-
-@property (strong, nonatomic) NSString *screenName;
 
 @end
 
@@ -27,10 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"LOADED");
-    //  Setting GTM DataLayer Values for DataLayer Macros. Shop View will the the value for the "screenName" key.
-    self.screenName = @"Shop View";
-
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidLoadHelper];
     
@@ -39,11 +35,10 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //  Create dictionary for app view hit.
-    NSDictionary *screenViewDictionary = @{@"event" : @"openScreen",
-                                           @"screenName" : self.screenName};
     
-    
+    //  Send App View with screen name Shop View to the data layer.
+    [AnalyticsEngine pushScreenWithName:@"Shop View"
+                     fromViewController:self];
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidAppearHelper];
 }
