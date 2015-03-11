@@ -37,13 +37,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSLog(@"LOADED");
     //  Setting GTM DataLayer Values for DataLayer Macros. Shop View will the the value for the "screenName" key.
     self.screenName = @"Shop View";
-    
-    
+
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidLoadHelper];
+    
+    NSDictionary *userID = @{@"userId" : [NSNull null]};
+    [self containerStateForkPushDictionary:userID];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
