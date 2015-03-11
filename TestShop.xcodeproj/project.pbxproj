@@ -25,7 +25,7 @@
 		6302863A1AA12E57001495E2 /* CartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630286381AA12E57001495E2 /* CartCell.xib */; };
 		6302863D1AA15317001495E2 /* ThankYouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6302863C1AA15317001495E2 /* ThankYouViewController.m */; };
 		632CE33A1AB0CF5100668F12 /* GTM-NJNM8T in Resources */ = {isa = PBXBuildFile; fileRef = 632CE3391AB0CF5100668F12 /* GTM-NJNM8T */; };
-		632CE33C1AB0D00500668F12 /* AnalyticsEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632CE33B1AB0D00500668F12 /* AnalyticsEngine.framework */; };
+		632CE3431AB0DBC400668F12 /* AnalyticsEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632CE3421AB0DBC400668F12 /* AnalyticsEngine.framework */; };
 		63C1C4AA1AA28D9500CDCD3F /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C1C4A91AA28D9500CDCD3F /* CheckoutViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +72,7 @@
 		6302863B1AA15317001495E2 /* ThankYouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThankYouViewController.h; sourceTree = "<group>"; };
 		6302863C1AA15317001495E2 /* ThankYouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThankYouViewController.m; sourceTree = "<group>"; };
 		632CE3391AB0CF5100668F12 /* GTM-NJNM8T */ = {isa = PBXFileReference; lastKnownFileType = file; name = "GTM-NJNM8T"; path = "../../../../Downloads/GTM-NJNM8T"; sourceTree = "<group>"; };
-		632CE33B1AB0D00500668F12 /* AnalyticsEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AnalyticsEngine.framework; sourceTree = "<group>"; };
+		632CE3421AB0DBC400668F12 /* AnalyticsEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AnalyticsEngine.framework; sourceTree = "<group>"; };
 		63C1C4A81AA28D9500CDCD3F /* CheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutViewController.h; sourceTree = "<group>"; };
 		63C1C4A91AA28D9500CDCD3F /* CheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				632CE33C1AB0D00500668F12 /* AnalyticsEngine.framework in Frameworks */,
+				632CE3431AB0DBC400668F12 /* AnalyticsEngine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,7 +131,7 @@
 		630285EF1AA1075A001495E2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				632CE33B1AB0D00500668F12 /* AnalyticsEngine.framework */,
+				632CE3421AB0DBC400668F12 /* AnalyticsEngine.framework */,
 				632CE3391AB0CF5100668F12 /* GTM-NJNM8T */,
 				630285F01AA1075A001495E2 /* Info.plist */,
 				630285F11AA1075A001495E2 /* main.m */,
@@ -440,7 +440,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
+					"$(SRCROOT)",
+					/Users/vincentlee/Desktop,
 					"$(PROJECT_DIR)/TestShop",
 				);
 				INFOPLIST_FILE = TestShop/Info.plist;
@@ -459,7 +460,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
+					"$(SRCROOT)",
+					/Users/vincentlee/Desktop,
 					"$(PROJECT_DIR)/TestShop",
 				);
 				INFOPLIST_FILE = TestShop/Info.plist;

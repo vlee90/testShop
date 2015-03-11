@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <AnalyticsEngine/AnalyticsEngine.h>
 
 @interface AppDelegate ()
 

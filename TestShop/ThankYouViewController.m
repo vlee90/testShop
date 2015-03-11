@@ -9,6 +9,12 @@
 #import "ThankYouViewController.h"
 #import "Cart.h"
 
+/*
+ /Users/vincentlee/Desktop
+ $(PROJECT_DIR)/TestShop
+ $(inherited)
+ */
+
 @interface ThankYouViewController ()
 
 @property (strong, nonatomic) NSString *screenName;
