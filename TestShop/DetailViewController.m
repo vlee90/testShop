@@ -26,35 +26,34 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
+    
     //  Push screen name and event to fire an App View Tag to the dataLayer.
-    [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName}];
+    NSDictionary *appViewDictionary = @{@"event" : @"openScreen",
+                                        @"screenName" : self.screenName};
     
     //  Push a dictionary that will create a Enhanced Ecommerce detail hit.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : @{
-                              @"detail" : @{
-                                  @"actionField" : @{
-                                          @"list" : @"Front Page Shop"
-                                          },
-                                  @"products" : @[
-                                          @{@"name" : self.item.name,
-                                            @"id" : self.item.sku,
-                                            @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
-                                            @"brand" : self.item.brand,
-                                            @"category" : self.item.category,
-                                            @"variant" : self.item.varient
-                                            }
-                                          ]
-                                  }
-                              }
-                      }
-     ];
+    NSDictionary *enhancedEcommerceDictionary = @{@"event" : @"EEscreenSeen",
+                                                  @"ecommerce" : @{
+                                                          @"detail" : @{
+                                                                  @"actionField" : @{
+                                                                          @"list" : @"Front Page Shop"
+                                                                          },
+                                                                  @"products" : @[
+                                                                          @{@"name" : self.item.name,
+                                                                            @"id" : self.item.sku,
+                                                                            @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
+                                                                            @"brand" : self.item.brand,
+                                                                            @"category" : self.item.category,
+                                                                            @"variant" : self.item.varient
+                                                                            }
+                                                                          ]
+                                                                  }
+                                                          }
+                                                  };
     
     //  Reset ecommerce values in dataLayer.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];
+    NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",
+                                      @"ecommerce" : [NSNull null]};
 }
 
 -(IBAction)buyButtonPressed:(id)sender {
@@ -79,31 +78,31 @@
     
     
     //  Push dictionary that will create an add hit when pushed to the dataLayer.
-    [dataLayer push:@{@"event" : @"addToCart",
-                      @"ecommerce" : @{
-                              @"actionField" : @{
-                                      @"list" : @"Front Page Shop"
-                                      },
-                              @"currencyCode" : @"USD",
-                              @"add" : @{
-                                      @"products" : @[
-                                              @{@"name" : self.item.name,
-                                                @"id" : self.item.sku,
-                                                @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
-                                                @"brand" : self.item.brand,
-                                                @"category" : self.item.category,
-                                                @"variant" : self.item.varient,
-                                                @"quantity" : @1
-                                                }
-                                              ]
-                                      }
-                              }
-                      }
-     ];
+    NSDictionary *addToCartDictionary = @{@"event" : @"addToCart",
+                                          @"ecommerce" : @{
+                                                  @"actionField" : @{
+                                                          @"list" : @"Front Page Shop"
+                                                          },
+                                                  @"currencyCode" : @"USD",
+                                                  @"add" : @{
+                                                          @"products" : @[
+                                                                  @{@"name" : self.item.name,
+                                                                    @"id" : self.item.sku,
+                                                                    @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
+                                                                    @"brand" : self.item.brand,
+                                                                    @"category" : self.item.category,
+                                                                    @"variant" : self.item.varient,
+                                                                    @"quantity" : @1
+                                                                    }
+                                                                  ]
+                                                          }
+                                                  }
+                                          };
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];}
+    NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",
+                                      @"ecommerce" : [NSNull null]};
+}
 
 //  Helper function that runs non GTM related code in viewDidLoad.
 -(void)viewDidLoadHelper {

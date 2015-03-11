@@ -30,38 +30,36 @@
     
     //  Additional non-GTM loading code.
     [self viewDidLoadHelper];
-    }
+}
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     //  Push dictionary to dataLayer that will create App View hit.
-    [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName}];
+    NSDictionary *appViewDictionary = @{@"event" : @"openScreen",
+                                        @"screenName" : self.screenName};
     
     //  Get all products in cart. They are formatted in a way that Enhanced Ecommerce will understand.
     NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];
+    NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",
+                                      @"ecommerce" : [NSNull null]};
     
-     //  Push a dictionary to that will create a checkout step.
-    [dataLayer push:@{@"event" : @"cartSeen",
-                      @"ecommerce" : @{
-                              @"checkout" : @{
-                                      @"actionField" : @{
-                                              @"step" : @1
-                                              },
-                                      @"products" : productArray
-                                      }
-                              }
-                      }
-     ];
+    //  Push a dictionary to that will create a checkout step.
+    NSDictionary *checkoutStepDictionary = @{@"event" : @"cartSeen",
+                                             @"ecommerce" : @{
+                                                     @"checkout" : @{
+                                                             @"actionField" : @{
+                                                                     @"step" : @1
+                                                                     },
+                                                             @"products" : productArray
+                                                             }
+                                                     }
+                                             }
+    ;
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];
 }
 
 -(void)checkoutButtonPressed:(id)sender {
@@ -70,11 +68,11 @@
     NSNumber *total = [[NSNumber alloc] initWithDouble:[Cart singleton].total];
     
     //  Push dictionary to dataLayer that will create an Event Hit.
-    [dataLayer push:@{@"event" : @"buttonPressed",
-                      @"eventCategoryName" : @"Button",
-                      @"eventActionName" : @"Pressed",
-                      @"eventLabelName" : @"Checkout",
-                      @"eventValueName" : total}];
+    NSDictionary *eventDictionary = @{@"event" : @"buttonPressed",
+                                      @"eventCategoryName" : @"Button",
+                                      @"eventActionName" : @"Pressed",
+                                      @"eventLabelName" : @"Checkout",
+                                      @"eventValueName" : total};
     
     //  Push view to CheckoutViewController.
     CheckoutViewController *checkoutVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CheckoutVC"];

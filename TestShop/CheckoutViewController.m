@@ -36,7 +36,7 @@
     [super viewDidLoad];
     //  Sets screen name for App View Hit.
     self.screenName = @"Checkout View";
-
+    
     //  Additional non-GTM code.
     [self viewDidLoadHelper];
     
@@ -49,45 +49,41 @@
     NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
     
     //  Sent hit for App View.
-    [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName}];
+    NSDictionary *appViewDictionary = @{@"event" : @"openScreen",
+                                        @"screenName" : self.screenName};
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];
+    NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",
+                                      @"ecommerce" : [NSNull null]};
     
     //  Push dictionary that will create a checkout step hit.
-    [dataLayer push:@{@"event" : @"shippingPaymentSeen",
-                      @"ecommerce" : @{
-                              @"checkout" : @{
-                                      @"actionField" : @{
-                                              @"step" : @2,
-                                              @"option" : self.shippingOption,
-                                              },
-                                      @"products" : productArray
-                                      }
-                              }
-                      }
-     ];
+    NSDictionary *checkoutStepDictionary = @{@"event" : @"shippingPaymentSeen",
+                                             @"ecommerce" : @{
+                                                     @"checkout" : @{
+                                                             @"actionField" : @{
+                                                                     @"step" : @2,
+                                                                     @"option" : self.shippingOption,
+                                                                     },
+                                                             @"products" : productArray
+                                                             }
+                                                     }
+                                             };
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];
     
     //  Push dictionary that will create a promoView hit.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : @{
-                              @"promoView" : @{
-                                      @"promotions" : @[
-                                              @{@"id" : @"FREE_SHIPPING_PROMO",
-                                                @"name" : @"Free Shipping Promo",
-                                                @"creative" : @"bottom",
-                                                @"position" : @"slot1"}
-                                              ]
-                                      }
-                              }
-                      }
-     ];
+    NSDictionary *promoViewDictionary =  @{@"event" : @"EEscreenSeen",
+                                           @"ecommerce" : @{
+                                                   @"promoView" : @{
+                                                           @"promotions" : @[
+                                                                   @{@"id" : @"FREE_SHIPPING_PROMO",
+                                                                     @"name" : @"Free Shipping Promo",
+                                                                     @"creative" : @"bottom",
+                                                                     @"position" : @"slot1"}
+                                                                   ]
+                                                           }
+                                                   }
+                                           };
 }
 
 //  Will change shipping state based on Switch Value.
@@ -99,20 +95,19 @@
         self.shippingOption = @"Free Shipping";
         
         //  Push dictionary to create a promoClick hit.
-        [dataLayer push:@{@"event" : @"promotionTouched",
-                          @"promoName" : @"Free Shipping Promo",
-                          @"ecommerce" : @{
-                                  @"promoClick" : @{
-                                          @"promotions" : @[
-                                                  @{@"id" : @"FREE_SHIPPING_PROMO",
-                                                    @"name" : @"Free Shipping Promo",
-                                                    @"creative" : @"bottom",
-                                                    @"position" : @"slot1"}
-                                                  ]
-                                          }
-                                  }
-                          }
-         ];
+        NSDictionary *promoClickDictionary =  @{@"event" : @"promotionTouched",
+                                                @"promoName" : @"Free Shipping Promo",
+                                                @"ecommerce" : @{
+                                                        @"promoClick" : @{
+                                                                @"promotions" : @[
+                                                                        @{@"id" : @"FREE_SHIPPING_PROMO",
+                                                                          @"name" : @"Free Shipping Promo",
+                                                                          @"creative" : @"bottom",
+                                                                          @"position" : @"slot1"}
+                                                                        ]
+                                                                }
+                                                        }
+                                                };
     }
     else {
         //  Free Shipping Off
@@ -139,33 +134,30 @@
                                                               //    Grab all items in the cart singleton.
                                                               NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
                                                               
-                                            
+                                                              
                                                               //    Resets ecommerce values.
-                                                              [dataLayer push:@{@"event" : @"EEscreenSeen",
-                                                                                @"ecommerce" : [NSNull null]}];
+                                                              NSDictionary *resetDictionary =  @{@"event" : @"EEscreenSeen",
+                                                                                                 @"ecommerce" : [NSNull null]};
                                                               
                                                               //    Push dictionary to create a purchase hit.
-                                                              [dataLayer push:@{@"event" : @"transactionComplete",
-                                                                                @"eventLabelName" : @"Checkout Complete",
-                                                                                @"eventValueName" : [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total],
-                                                                                @"ecommerce" : @{
-                                                                                        @"purchase" : @{
-                                                                                                @"actionField" : @{
-                                                                                                        @"id" : transactionId,
-                                                                                                        @"affiliation" : @"Analytics Pros App Fruit Store",
-                                                                                                        @"revenue" : [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total],
-                                                                                                        @"tax" : [NSString stringWithFormat:@"%f", (long)[Cart singleton].total * 0.065],
-                                                                                                        @"shipping" : self.shippingFee,
-                                                                                                        },
-                                                                                                @"products" : productArray
-                                                                                                }
-                                                                                        }
-                                                                                }
-                                                               ];
+                                                              NSDictionary *purchaseDictionary =  @{@"event" : @"transactionComplete",
+                                                                                                    @"eventLabelName" : @"Checkout Complete",
+                                                                                                    @"eventValueName" : [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total],
+                                                                                                    @"ecommerce" : @{
+                                                                                                            @"purchase" : @{
+                                                                                                                    @"actionField" : @{
+                                                                                                                            @"id" : transactionId,
+                                                                                                                            @"affiliation" : @"Analytics Pros App Fruit Store",
+                                                                                                                            @"revenue" : [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total],
+                                                                                                                            @"tax" : [NSString stringWithFormat:@"%f", (long)[Cart singleton].total * 0.065],
+                                                                                                                            @"shipping" : self.shippingFee,
+                                                                                                                            },
+                                                                                                                    @"products" : productArray
+                                                                                                                    }
+                                                                                                            }
+                                                                                                    };
                                                               
                                                               //    Resets ecommerce values.
-                                                              [dataLayer push:@{@"event" : @"EEscreenSeen",
-                                                                                @"ecommerce" : [NSNull null]}];
                                                               
                                                               //    Segue to ThankYouViewController.
                                                               ThankYouViewController *thankYouVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ThankYouVC"];
@@ -175,10 +167,10 @@
                                                          style:UIAlertActionStyleCancel
                                                        handler:^(UIAlertAction *action) {
                                                            //   Push dictionary that will create Event hit
-                                                           [dataLayer push:@{@"event" : @"buttonPressed",
-                                                                             @"eventCategoryName" : @"Button",
-                                                                             @"eventActionName" : @"Pressed",
-                                                                             @"eventLabelName" : @"Cancel Checkout"}];
+                                                           NSDictionary *eventDictionary =  @{@"event" : @"buttonPressed",
+                                                                                              @"eventCategoryName" : @"Button",
+                                                                                              @"eventActionName" : @"Pressed",
+                                                                                              @"eventLabelName" : @"Cancel Checkout"};
                                                        }];
         [alertController addAction:yesAction];
         [alertController addAction:cancel];
@@ -193,15 +185,15 @@
                                                          style:UIAlertActionStyleCancel
                                                        handler:^(UIAlertAction *action) {
                                                            //   Push dictionary that will create an Event tag.
-                                                           [dataLayer push:@{@"event" : @"buttonPressed",
-                                                                             @"eventCategoryName" : @"Button",
-                                                                             @"eventActionName" : @"Pressed",
-                                                                             @"eventLabelName" : @"Fields not Filled"}];
+                                                           NSDictionary *eventDictionary = @{@"event" : @"buttonPressed",
+                                                                                             @"eventCategoryName" : @"Button",
+                                                                                             @"eventActionName" : @"Pressed",
+                                                                                             @"eventLabelName" : @"Fields not Filled"};
                                                        }];
         [alertController addAction:cancel];
         [self presentViewController:alertController animated:true completion:nil];
     }
-
+    
 }
 
 //  Checks if all TextFields are filled.

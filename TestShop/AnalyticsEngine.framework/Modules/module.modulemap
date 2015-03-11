@@ -1,0 +1,6 @@
+framework module AnalyticsEngine {
+  umbrella header "AnalyticsEngine.h"
+
+  export *
+  module * { export * }
+}

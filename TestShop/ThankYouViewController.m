@@ -21,49 +21,46 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     //  Sets screen name for App View
     self.screenName = @"Thank You View";
     
     //  Additional non-GTM Code
     [self viewDidLoadHelper];
-
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     //  Push dictionary that will  create App View hit.
-    [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName}];
+    NSDictionary *appViewDictionary = @{@"event" : @"openScreen",
+                                       @"screenName" : self.screenName};
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];
+    NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",
+                                      @"ecommerce" : [NSNull null]};
     
     //  Push dictionary to dataLayer that will create checkout step hit.
-    [dataLayer push:@{@"event" : @"thankYouSeen",
-                      @"ecommerce" : @{
-                              @"checkout" : @{
-                                      @"actionField" : @{
-                                              @"step" : @3
-                                              }
-                                      }
-                              }
-                      }
-     ];
+    NSDictionary *checkoutStepDictionary =  @{@"event" : @"thankYouSeen",
+                                              @"ecommerce" : @{
+                                                      @"checkout" : @{
+                                                              @"actionField" : @{
+                                                                      @"step" : @3
+                                                                      }
+                                                              }
+                                                      }
+                                              };
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
-                      @"ecommerce" : [NSNull null]}];
 }
 
 - (IBAction)returnButtonPressed:(id)sender {
     //  Push dictionary that will create an event hit.
-    [dataLayer push:@{@"event" : @"buttonPressed",
-                      @"eventCategoryName" : @"Button",
-                      @"eventActionName" : @"Pressed",
-                      @"eventLabelName" : @"Resume Shopping"}];
+    NSDictionary *eventDictionary = @{@"event" : @"buttonPressed",
+                                      @"eventCategoryName" : @"Button",
+                                      @"eventActionName" : @"Pressed",
+                                      @"eventLabelName" : @"Resume Shopping"};
     
     //  Return to starting ViewController.
     [self.navigationController popToRootViewControllerAnimated:true];
