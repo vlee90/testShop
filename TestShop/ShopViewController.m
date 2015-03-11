@@ -14,22 +14,12 @@
 #import "Shop.h"
 #import "CartViewController.h"
 
-#import "TAGDataLayer.h"
-#import "TAGManager.h"
-
-#import "TAGContainerOpener.h"
-#import "AppDelegate.h"
-
-@interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TAGContainerOpenerNotifier>
+@interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cartBarButtonItem;
 
 @property (strong, nonatomic) NSString *screenName;
-
-@property (strong, nonatomic) NSMutableArray *dataLayerPreLoadedArray;
-
-@property BOOL firstLoad;
 
 @end
 
@@ -45,7 +35,6 @@
     [self viewDidLoadHelper];
     
     NSDictionary *userID = @{@"userId" : [NSNull null]};
-    [self containerStateForkPushDictionary:userID];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -53,42 +42,11 @@
     //  Create dictionary for app view hit.
     NSDictionary *screenViewDictionary = @{@"event" : @"openScreen",
                                            @"screenName" : self.screenName};
-    //  Push into method to ensure hit fires when container is open.
-    [self containerStateForkPushDictionary:screenViewDictionary];
     
     
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidAppearHelper];
 }
-
-//Fires when container finishes loading
--(void)containerAvailable:(TAGContainer *)container {
-    //  continaerAvailable will run code on any thread. GCD will code ensures that code is dispatched to main thread.
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //  Maintain reference to container
-        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-        appDelegate.container = container;
-        
-#ifdef DEBUG
-        //  For testing purposes only
-        [appDelegate.container refresh];
-#endif
-        
-        //  Sets the container state. Now all pushes to the dataLayer will be sent to Google Analytics.
-        appDelegate.isContainerOpen = true;
-        
-        //  Send any hits that were supposed to fire before the container was open.
-        TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-        for (NSInteger i = 0; i < self.dataLayerPreLoadedArray.count; i++) {
-            [dataLayer push:[self.dataLayerPreLoadedArray objectAtIndex:i]];
-        }
-        
-        //  Resets the ecommerce values in the dataLayer. This is needed to ensure that values from old hits do not be resent in new hits.
-        [dataLayer push:@{@"event" : @"EEscreenSeen",
-                          @"ecommerce" : [NSNull null]}];
-    });
-}
-
 
 - (IBAction)cartButtonPressed:(id)sender {
     //  Total Number of items in cart.
@@ -99,8 +57,6 @@
                                            @"eventActionName" : @"Pressed",
                                            @"eventLabelName" : @"Cart",
                                            @"eventValueName" : numberOfItems};
-     //  Pass to this custom method to ensure the container is open before pushing the dictionary to the dataLayer.
-    [self containerStateForkPushDictionary:cartButtonDictionary];
     
     //  Push to the User's Cart.
     CartViewController *cartVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CartVC"];
@@ -134,8 +90,6 @@
                                                            ]
                                                    }
                                            };
-    //  Pass to this custom method to ensure the container is open before pushing the dictionary to the dataLayer.
-    [self containerStateForkPushDictionary:impressionDictionary];
     return cell;
 }
 
@@ -171,34 +125,11 @@
                                                         }
                                                 };
     
-     //  Pass to this custom method to ensure the container is open before pushing the dictionary to the dataLayer.
-    [self containerStateForkPushDictionary:productTouchedDictionary];
-    
     //  Push view to the DetailViewController.
     DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     detailVC.item = item;
     
     [self.navigationController pushViewController:detailVC animated:true];
-}
-
-
-//  This method ensures that any dictionary that should be pushed to the dataLayer will not be pushed until the container is open.
--(void)containerStateForkPushDictionary:(NSDictionary *)dictionary {
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    
-    if (appDelegate.isContainerOpen) {
-        //  Container is open so dictionary will be pushed.
-        [dataLayer push:dictionary];
-        
-        //  Resets the ecommerce values in the dataLayer. This is needed to ensure that values from old hits do not be resent in new hits.
-        [dataLayer push:@{@"event" : @"EEscreenSeen",
-                          @"ecommerce" : [NSNull null]}];
-    }
-    else {
-        //  Will push dictionary when container is available.
-        [self.dataLayerPreLoadedArray addObject:dictionary];
-    }
 }
 
 //  Code that is needed for the ViewController but isn't related to GTM.
@@ -208,29 +139,12 @@
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"ItemCell"];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    
-    //  Initialize to be loaded
-    self.dataLayerPreLoadedArray = [NSMutableArray new];
-    
-    //  Track state of view's loading.
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        self.firstLoad = true;
-    });
 }
 
 //  Code that is needed for the ViewController but isn't related to GTM.
 -(void)viewDidAppearHelper {
-    //  Loads new quanitiy values after use puts them into cart in DetailViewController.
-    
-    //  Dependent on BOOL. If not, UICollectionView::reloadData is causing impression hits to be created TWICE on initial app launch. A bit "hacky". Not a great solution.
-    if (self.firstLoad == false) {
-        [self.collectionView reloadData];
-    }
-    self.firstLoad = false;
+    [self.collectionView reloadData];
 
-    
-    //
     NSInteger totalNumberOfItems = [[Cart singleton] totalNumberOfItemsInCart];
     self.cartBarButtonItem.title = [NSString stringWithFormat:@"Cart(%ld)", (long)totalNumberOfItems];
 }

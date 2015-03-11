@@ -10,8 +10,6 @@
 #import "ThankYouViewController.h"
 #import "Cart.h"
 #import "Item.h"
-#import "TAGDataLayer.h"
-#import "TAGManager.h"
 
 @interface CheckoutViewController ()
 
@@ -51,7 +49,6 @@
     NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
     
     //  Sent hit for App View.
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
                       @"screenName" : self.screenName}];
     
@@ -102,7 +99,6 @@
         self.shippingOption = @"Free Shipping";
         
         //  Push dictionary to create a promoClick hit.
-        TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
         [dataLayer push:@{@"event" : @"promotionTouched",
                           @"promoName" : @"Free Shipping Promo",
                           @"ecommerce" : @{
@@ -145,7 +141,6 @@
                                                               
                                             
                                                               //    Resets ecommerce values.
-                                                              TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
                                                               [dataLayer push:@{@"event" : @"EEscreenSeen",
                                                                                 @"ecommerce" : [NSNull null]}];
                                                               
@@ -180,7 +175,6 @@
                                                          style:UIAlertActionStyleCancel
                                                        handler:^(UIAlertAction *action) {
                                                            //   Push dictionary that will create Event hit
-                                                           TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
                                                            [dataLayer push:@{@"event" : @"buttonPressed",
                                                                              @"eventCategoryName" : @"Button",
                                                                              @"eventActionName" : @"Pressed",
@@ -199,7 +193,6 @@
                                                          style:UIAlertActionStyleCancel
                                                        handler:^(UIAlertAction *action) {
                                                            //   Push dictionary that will create an Event tag.
-                                                           TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
                                                            [dataLayer push:@{@"event" : @"buttonPressed",
                                                                              @"eventCategoryName" : @"Button",
                                                                              @"eventActionName" : @"Pressed",

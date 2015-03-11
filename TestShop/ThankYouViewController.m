@@ -8,8 +8,6 @@
 
 #import "ThankYouViewController.h"
 #import "Cart.h"
-#import "TAGDataLayer.h"
-#import "TAGManager.h"
 
 @interface ThankYouViewController ()
 
@@ -36,7 +34,6 @@
     [super viewWillAppear:animated];
     
     //  Push dictionary that will  create App View hit.
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
                       @"screenName" : self.screenName}];
     
@@ -63,7 +60,6 @@
 
 - (IBAction)returnButtonPressed:(id)sender {
     //  Push dictionary that will create an event hit.
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"buttonPressed",
                       @"eventCategoryName" : @"Button",
                       @"eventActionName" : @"Pressed",

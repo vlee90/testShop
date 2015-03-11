@@ -7,8 +7,6 @@
 //
 
 #import "DetailViewController.h"
-#import "TAGDataLayer.h"
-#import "TAGManager.h"
 
 @interface DetailViewController ()
 
@@ -30,7 +28,6 @@
     [super viewDidAppear:animated];
 
     //  Push screen name and event to fire an App View Tag to the dataLayer.
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
                       @"screenName" : self.screenName}];
     
@@ -82,7 +79,6 @@
     
     
     //  Push dictionary that will create an add hit when pushed to the dataLayer.
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"addToCart",
                       @"ecommerce" : @{
                               @"actionField" : @{

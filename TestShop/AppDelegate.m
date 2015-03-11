@@ -7,10 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "TAGContainerOpener.h"
-#import "TAGManager.h"
-#import "ShopViewController.h"
-
 
 @interface AppDelegate ()
 
@@ -20,43 +16,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.isContainerOpen = false;
-    
-    //  Get singleton of TAGManager
-    self.tagManager = [TAGManager instance];
-    
-    //  Set Logger Level
-    [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
-    
-    //  If your inital ViewController is dependent on app design. Should be first viewController with viewDidLoad/viewDidAppear, etc.
-    UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
-    
-    //Open Container
-//    NSTimeInterval timeout = 0.000000000000000000000001;
-    [TAGContainerOpener openContainerWithId:@"GTM-NJNM8T"
-                                 tagManager:self.tagManager
-                                   openType:kTAGOpenTypePreferFresh
-                                    timeout:nil
-                                   notifier:(ShopViewController<TAGContainerOpenerNotifier> *)navController.viewControllers[0]];
-    
-#ifdef DEBUG
-    NSTimeInterval dispatchTime = 5;
-    [self.tagManager setDispatchInterval:dispatchTime];
-#endif
-    
+
     return YES;
 }
-
-#ifdef DEBUG
-//  More PREVIEW Code
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([self.tagManager previewWithUrl:url]) {
-        return YES;
-    }
-    return NO;
-}
-#endif
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

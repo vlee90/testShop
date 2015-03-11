@@ -11,8 +11,6 @@
 #import "CartCell.h"
 #import "Item.h"
 #import "CheckoutViewController.h"
-#import "TAGDataLayer.h"
-#import "TAGManager.h"
 
 @interface CartViewController ()<UITableViewDataSource>
 
@@ -38,7 +36,6 @@
     [super viewWillAppear:animated];
     
     //  Push dictionary to dataLayer that will create App View hit.
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"openScreen",
                       @"screenName" : self.screenName}];
     
@@ -73,7 +70,6 @@
     NSNumber *total = [[NSNumber alloc] initWithDouble:[Cart singleton].total];
     
     //  Push dictionary to dataLayer that will create an Event Hit.
-    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
     [dataLayer push:@{@"event" : @"buttonPressed",
                       @"eventCategoryName" : @"Button",
                       @"eventActionName" : @"Pressed",
