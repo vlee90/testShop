@@ -16,6 +16,8 @@
 
 @import AnalyticsEngine;
 
+#import <objc/runtime.h>
+
 @interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -31,6 +33,40 @@
     [self viewDidLoadHelper];
     
     NSDictionary *userID = @{@"userId" : [NSNull null]};
+}
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [self class];
+        
+        SEL originalSelector = @selector(viewWillAppear:);
+        SEL swizzledSelector = @selector(xxx_viewWillAppear:);
+        
+        Method originalMethod = class_getInstanceMethod(class, originalSelector);
+        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+        
+        BOOL didAddMethod =
+            class_addMethod(class,
+                            originalSelector,
+                            method_getImplementation(swizzledMethod),
+                            method_getTypeEncoding(swizzledMethod));
+        
+        if (didAddMethod) {
+            class_replaceMethod(class,
+                                swizzledSelector,
+                                method_getImplementation(originalMethod),
+                                method_getTypeEncoding(originalMethod));
+        }
+        else {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
+    });
+}
+
+- (void)xxx_viewWillAppear:(BOOL)animated {
+    [self xxx_viewWillAppear:animated];
+    NSLog(@"viewWillAppear: %@", self);
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -52,6 +88,10 @@
                                            @"eventActionName" : @"Pressed",
                                            @"eventLabelName" : @"Cart",
                                            @"eventValueName" : numberOfItems};
+    
+    [AnalyticsEngine pushEventForButton:self.cartBarButtonItem
+                               withName:@"Cart-Button"
+                     fromViewController:self];
     
     //  Push to the User's Cart.
     CartViewController *cartVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CartVC"];
