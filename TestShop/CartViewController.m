@@ -12,6 +12,8 @@
 #import "Item.h"
 #import "CheckoutViewController.h"
 
+@import AnalyticsEngine;
+
 @interface CartViewController ()<UITableViewDataSource>
 
 @property (strong, nonatomic) NSString *screenName;
@@ -36,8 +38,7 @@
     [super viewWillAppear:animated];
     
     //  Push dictionary to dataLayer that will create App View hit.
-    NSDictionary *appViewDictionary = @{@"event" : @"openScreen",
-                                        @"screenName" : self.screenName};
+    [AnalyticsEngine pushScreenWithName:self.screenName fromViewController:self];
     
     //  Get all products in cart. They are formatted in a way that Enhanced Ecommerce will understand.
     NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];

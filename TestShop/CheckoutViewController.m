@@ -11,6 +11,8 @@
 #import "Cart.h"
 #import "Item.h"
 
+@import AnalyticsEngine;
+
 @interface CheckoutViewController ()
 
 @property (strong, nonatomic) NSString *screenName;
@@ -49,8 +51,7 @@
     NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
     
     //  Sent hit for App View.
-    NSDictionary *appViewDictionary = @{@"event" : @"openScreen",
-                                        @"screenName" : self.screenName};
+    [AnalyticsEngine pushScreenWithName:self.screenName fromViewController:self];
     
     //  Reset ecommerce values.
     NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",

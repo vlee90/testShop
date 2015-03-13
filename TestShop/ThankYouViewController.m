@@ -9,6 +9,7 @@
 #import "ThankYouViewController.h"
 #import "Cart.h"
 
+@import AnalyticsEngine;
 /*
  /Users/vincentlee/Desktop
  $(PROJECT_DIR)/TestShop
@@ -40,8 +41,7 @@
     [super viewWillAppear:animated];
     
     //  Push dictionary that will  create App View hit.
-    NSDictionary *appViewDictionary = @{@"event" : @"openScreen",
-                                       @"screenName" : self.screenName};
+    [AnalyticsEngine pushScreenWithName:self.screenName fromViewController:self];
     
     //  Reset ecommerce values.
     NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",

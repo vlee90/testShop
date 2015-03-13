@@ -20,10 +20,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     //  Pass GTM Container ID to Analytics Engine. Beings container opening process.
     [AnalyticsEngine startEngineWithContainerID:@"GTM-NJNM8T"];
-    
     return YES;
 }
 

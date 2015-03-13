@@ -21,24 +21,28 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cartBarButtonItem;
 
+@property (strong, nonatomic) NSString *screenName;
+
 @end
 
 @implementation ShopViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = @"Shop View";
+    
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidLoadHelper];
     
-    NSDictionary *userID = @{@"userId" : [NSNull null]};
+    NSDictionary *userID = @{@"userId" : @"USER_ID"};
+    [AnalyticsEngine pushEventNamed:@"user-is-authenticated" withParams:userID];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     //  Send App View with screen name Shop View to the data layer.
-    [AnalyticsEngine pushScreenWithName:@"Shop View"
-                     fromViewController:self];
+    [AnalyticsEngine pushScreenWithName:self.screenName fromViewController:self];
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidAppearHelper];
 }
@@ -70,8 +74,7 @@
     [cell.countLabel.layer setMasksToBounds: true];
     
     //  Create dictionary for impression hit that represents the item in the cell.
-    NSDictionary *impressionDictionary = @{@"event" : @"EEscreenSeen",
-                                           @"ecommerce" : @{
+    NSDictionary *impressionDictionary = @{@"ecommerce" : @{
                                                    @"impressions" : @[
                                                            @{@"name" : item.name,
                                                              @"id" : item.sku,
@@ -85,6 +88,8 @@
                                                            ]
                                                    }
                                            };
+    [AnalyticsEngine pushEventNamed:@"impression-seen" withParams:impressionDictionary];
+    [AnalyticsEngine pushEventNamed:@"reset-ecommerce" withParams:@{@"ecommerce" : [NSNull null]}];
     return cell;
 }
 
@@ -101,8 +106,7 @@
     Item *item = [shop.shopItems objectAtIndex:indexPath.row];
     
     //  Create dictionary that will create a product touched event when pushed to the dataLayer.
-    NSDictionary *productTouchedDictionary =  @{@"event" : @"productTouched",
-                                                @"eventLabelName" : item.name,
+    NSDictionary *productTouchedDictionary =  @{@"eventLabelName" : item.name,
                                                 @"ecommerce" : @{
                                                         @"click" : @{
                                                                 @"actionField" : @{
@@ -119,11 +123,10 @@
                                                                 }
                                                         }
                                                 };
-    
     //  Push view to the DetailViewController.
+    [AnalyticsEngine pushEventNamed:@"productTouched" withParams:productTouchedDictionary];
     DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     detailVC.item = item;
-    
     [self.navigationController pushViewController:detailVC animated:true];
 }
 
@@ -138,7 +141,15 @@
 
 //  Code that is needed for the ViewController but isn't related to GTM.
 -(void)viewDidAppearHelper {
-    [self.collectionView reloadData];
+    static dispatch_once_t onceToken;
+    static BOOL firstRun;
+    dispatch_once(&onceToken, ^{
+        firstRun = true;
+    });
+    if (firstRun == false) {
+        [self.collectionView reloadData];
+    }
+    firstRun = false;
 
     NSInteger totalNumberOfItems = [[Cart singleton] totalNumberOfItemsInCart];
     self.cartBarButtonItem.title = [NSString stringWithFormat:@"Cart(%ld)", (long)totalNumberOfItems];

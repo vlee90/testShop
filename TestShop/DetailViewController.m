@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+@import AnalyticsEngine;
 
 @interface DetailViewController ()
 
@@ -28,8 +29,7 @@
     [super viewDidAppear:animated];
     
     //  Push screen name and event to fire an App View Tag to the dataLayer.
-    NSDictionary *appViewDictionary = @{@"event" : @"openScreen",
-                                        @"screenName" : self.screenName};
+    [AnalyticsEngine pushScreenWithName:self.screenName fromViewController:self];
     
     //  Push a dictionary that will create a Enhanced Ecommerce detail hit.
     NSDictionary *enhancedEcommerceDictionary = @{@"event" : @"EEscreenSeen",

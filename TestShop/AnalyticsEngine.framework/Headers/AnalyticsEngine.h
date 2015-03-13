@@ -88,33 +88,6 @@ FOUNDATION_EXPORT const unsigned char AnalyticsEngineVersionString[];
             withName:(NSString *)fieldName
   fromViewController:(UIViewController *)viewController;
 
-
-/**
- *  Used when adding event listeners, provides an AEEvent object in the block params
- *
- *  @param event the event being dispatched to Google Tag Manager
- */
-typedef void (^AEEventHandler)(AEEvent *event);
-
-/**
- *  sets or replaces the execution block to be fired whenever an event with the given eventName is sent to AnalyticsEngine
- *  @note calling this method for an eventName with an existing handler will replace the old eventHandler
- *
- *  @param eventName    name of the event which will trigger the given eventHandler
- *  @param eventHandler called whenever an event of the given eventName is pushed to AnalyticsEngine
- *  @param shouldIntercept  send TRUE to be notified before the event fires
- */
-+ (void)addHandler:(AEEventHandler)eventHandler
-     forEventNamed:(NSString *)eventName
-         intercept:(BOOL)shouldIntercept;
-
-/**
- *  removes the existing event handler block (if any) from the given event name
- *
- *  @param eventName    name of the event which will have its handlers removed
- */
-+ (void)removeHandlerForEventNamed:(NSString *)eventName;
-
 /**
  *  sends an event to Google Analytics via your Google Tag Manager container's configuration
  *
