@@ -89,6 +89,10 @@
                               }
                       }
      ];
+    
+    //  Reset ecommerce values.
+    [dataLayer push:@{@"event" : @"reset-ecommerce",
+                      @"ecommerce" : [NSNull null]}];
 }
 
 //  Will change shipping state based on Switch Value.
