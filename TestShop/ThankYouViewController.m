@@ -23,9 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    //  Sets screen name for App View
-    self.screenName = @"Thank You View";
     
     //  Additional non-GTM Code
     [self viewDidLoadHelper];
@@ -37,15 +34,15 @@
     
     //  Push dictionary that will  create App View hit.
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName}];
+    [dataLayer push:@{@"event" : @"screen-open",
+                      @"screen-name" : @"Thank You View"}];
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"reset-ecommerce",
                       @"ecommerce" : [NSNull null]}];
     
     //  Push dictionary to dataLayer that will create checkout step hit.
-    [dataLayer push:@{@"event" : @"thankYouSeen",
+    [dataLayer push:@{@"event" : @"thank-you-seen",
                       @"ecommerce" : @{
                               @"checkout" : @{
                                       @"actionField" : @{
@@ -57,17 +54,17 @@
      ];
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"reset-ecommerce",
                       @"ecommerce" : [NSNull null]}];
 }
 
 - (IBAction)returnButtonPressed:(id)sender {
     //  Push dictionary that will create an event hit.
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    [dataLayer push:@{@"event" : @"buttonPressed",
-                      @"eventCategoryName" : @"Button",
-                      @"eventActionName" : @"Pressed",
-                      @"eventLabelName" : @"Resume Shopping"}];
+    [dataLayer push:@{@"event" : @"button-pressed",
+                      @"event-category-name" : @"Button",
+                      @"event-action-name" : @"Pressed",
+                      @"event-label-name" : @"Resume Shopping"}];
     
     //  Return to starting ViewController.
     [self.navigationController popToRootViewControllerAnimated:true];

@@ -21,8 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //  Set screen name for GTM App View based on ViewController's item.
-    self.screenName = [NSString stringWithFormat:@"Detail View - %@", self.item.name];
     [self viewDidLoadHelper];
 }
 
@@ -31,11 +29,11 @@
 
     //  Push screen name and event to fire an App View Tag to the dataLayer.
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName}];
+    [dataLayer push:@{@"event" : @"screen-open",
+                      @"screen-name" : [NSString stringWithFormat:@"Detail View - %@", self.item.name]}];
     
     //  Push a dictionary that will create a Enhanced Ecommerce detail hit.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"product-detail-seen",
                       @"ecommerce" : @{
                               @"detail" : @{
                                   @"actionField" : @{
@@ -56,7 +54,7 @@
      ];
     
     //  Reset ecommerce values in dataLayer.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"reset-ecommerce",
                       @"ecommerce" : [NSNull null]}];
 }
 
@@ -83,7 +81,7 @@
     
     //  Push dictionary that will create an add hit when pushed to the dataLayer.
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    [dataLayer push:@{@"event" : @"addToCart",
+    [dataLayer push:@{@"event" : @"add-to-cart",
                       @"ecommerce" : @{
                               @"actionField" : @{
                                       @"list" : @"Front Page Shop"
@@ -106,7 +104,7 @@
      ];
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"reset-ecommerce",
                       @"ecommerce" : [NSNull null]}];}
 
 //  Helper function that runs non GTM related code in viewDidLoad.

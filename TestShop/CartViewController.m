@@ -27,9 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //  Set screen name for GTM App View.
-    self.screenName = @"Cart View";
-    
     //  Additional non-GTM loading code.
     [self viewDidLoadHelper];
     }
@@ -39,18 +36,18 @@
     
     //  Push dictionary to dataLayer that will create App View hit.
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName}];
+    [dataLayer push:@{@"event" : @"screen-open",
+                      @"screen-name" : @"Cart View"}];
     
     //  Get all products in cart. They are formatted in a way that Enhanced Ecommerce will understand.
     NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"reset-ecommerce",
                       @"ecommerce" : [NSNull null]}];
     
      //  Push a dictionary to that will create a checkout step.
-    [dataLayer push:@{@"event" : @"cartSeen",
+    [dataLayer push:@{@"event" : @"cart-seen",
                       @"ecommerce" : @{
                               @"checkout" : @{
                                       @"actionField" : @{
@@ -63,7 +60,7 @@
      ];
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"reset-ecommerce",
                       @"ecommerce" : [NSNull null]}];
 }
 
@@ -74,11 +71,11 @@
     
     //  Push dictionary to dataLayer that will create an Event Hit.
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    [dataLayer push:@{@"event" : @"buttonPressed",
-                      @"eventCategoryName" : @"Button",
-                      @"eventActionName" : @"Pressed",
-                      @"eventLabelName" : @"Checkout",
-                      @"eventValueName" : total}];
+    [dataLayer push:@{@"event" : @"button-pressed",
+                      @"event-category-name" : @"Button",
+                      @"event-action-name" : @"Pressed",
+                      @"event-label-name" : @"Checkout",
+                      @"event-value-name" : total}];
     
     //  Push view to CheckoutViewController.
     CheckoutViewController *checkoutVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CheckoutVC"];

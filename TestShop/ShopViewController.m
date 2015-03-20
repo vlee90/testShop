@@ -25,8 +25,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cartBarButtonItem;
 
-@property (strong, nonatomic) NSString *screenName;
-
 @property (strong, nonatomic) NSMutableArray *dataLayerPreLoadedArray;
 
 @property BOOL firstLoad;
@@ -38,21 +36,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"LOADED");
-    //  Setting GTM DataLayer Values for DataLayer Macros. Shop View will the the value for the "screenName" key.
-    self.screenName = @"Shop View";
 
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidLoadHelper];
     
-    NSDictionary *userID = @{@"userId" : [NSNull null]};
+    NSDictionary *userID = @{@"user-id" : [NSNull null]};
     [self containerStateForkPushDictionary:userID];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     //  Create dictionary for app view hit.
-    NSDictionary *screenViewDictionary = @{@"event" : @"openScreen",
-                                           @"screenName" : self.screenName};
+    NSDictionary *screenViewDictionary = @{@"event" : @"screen-open",
+                                           @"screen-name" : @"Shop View"};
+
     //  Push into method to ensure hit fires when container is open.
     [self containerStateForkPushDictionary:screenViewDictionary];
     
@@ -84,7 +81,7 @@
         }
         
         //  Resets the ecommerce values in the dataLayer. This is needed to ensure that values from old hits do not be resent in new hits.
-        [dataLayer push:@{@"event" : @"EEscreenSeen",
+        [dataLayer push:@{@"event" : @"reset-ecommerce",
                           @"ecommerce" : [NSNull null]}];
     });
 }
@@ -94,11 +91,11 @@
     //  Total Number of items in cart.
     NSNumber *numberOfItems = [[NSNumber alloc] initWithInteger:[Cart singleton].totalNumberOfItemsInCart];
     //  Build dictionary to fire Event Tag.
-    NSDictionary *cartButtonDictionary = @{@"event" : @"buttonPressed",
-                                           @"eventCategoryName" : @"Button",
-                                           @"eventActionName" : @"Pressed",
-                                           @"eventLabelName" : @"Cart",
-                                           @"eventValueName" : numberOfItems};
+    NSDictionary *cartButtonDictionary = @{@"event" : @"button-Pressed",
+                                           @"event-category-name" : @"Button",
+                                           @"event-action-name" : @"Pressed",
+                                           @"event-label-name" : @"Cart",
+                                           @"event-value-name" : numberOfItems};
      //  Pass to this custom method to ensure the container is open before pushing the dictionary to the dataLayer.
     [self containerStateForkPushDictionary:cartButtonDictionary];
     
@@ -119,7 +116,7 @@
     [cell.countLabel.layer setMasksToBounds: true];
     
     //  Create dictionary for impression hit that represents the item in the cell.
-    NSDictionary *impressionDictionary = @{@"event" : @"EEscreenSeen",
+    NSDictionary *impressionDictionary = @{@"event" : @"impression-seen",
                                            @"ecommerce" : @{
                                                    @"impressions" : @[
                                                            @{@"name" : item.name,
@@ -152,8 +149,8 @@
     Item *item = [shop.shopItems objectAtIndex:indexPath.row];
     
     //  Create dictionary that will create a product touched event when pushed to the dataLayer.
-    NSDictionary *productTouchedDictionary =  @{@"event" : @"productTouched",
-                                                @"eventLabelName" : item.name,
+    NSDictionary *productTouchedDictionary =  @{@"event" : @"product-touched",
+                                                @"event-label-name" : item.name,
                                                 @"ecommerce" : @{
                                                         @"click" : @{
                                                                 @"actionField" : @{
@@ -192,7 +189,7 @@
         [dataLayer push:dictionary];
         
         //  Resets the ecommerce values in the dataLayer. This is needed to ensure that values from old hits do not be resent in new hits.
-        [dataLayer push:@{@"event" : @"EEscreenSeen",
+        [dataLayer push:@{@"event" : @"reset-ecommerce",
                           @"ecommerce" : [NSNull null]}];
     }
     else {

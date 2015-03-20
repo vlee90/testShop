@@ -36,8 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //  Sets screen name for App View Hit.
-    self.screenName = @"Checkout View";
 
     //  Additional non-GTM code.
     [self viewDidLoadHelper];
@@ -52,15 +50,15 @@
     
     //  Sent hit for App View.
     TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-    [dataLayer push:@{@"event" : @"openScreen",
-                      @"screenName" : self.screenName}];
+    [dataLayer push:@{@"event" : @"screen-open",
+                      @"screen-name" : @"Checkout View"}];
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"reset-ecommerce",
                       @"ecommerce" : [NSNull null]}];
     
     //  Push dictionary that will create a checkout step hit.
-    [dataLayer push:@{@"event" : @"shippingPaymentSeen",
+    [dataLayer push:@{@"event" : @"shipping-payment-seen",
                       @"ecommerce" : @{
                               @"checkout" : @{
                                       @"actionField" : @{
@@ -74,11 +72,11 @@
      ];
     
     //  Reset ecommerce values.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"reset-ecommerce",
                       @"ecommerce" : [NSNull null]}];
     
     //  Push dictionary that will create a promoView hit.
-    [dataLayer push:@{@"event" : @"EEscreenSeen",
+    [dataLayer push:@{@"event" : @"promotion-seen",
                       @"ecommerce" : @{
                               @"promoView" : @{
                                       @"promotions" : @[
@@ -103,7 +101,7 @@
         
         //  Push dictionary to create a promoClick hit.
         TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-        [dataLayer push:@{@"event" : @"promotionTouched",
+        [dataLayer push:@{@"event" : @"promotion-touched",
                           @"promoName" : @"Free Shipping Promo",
                           @"ecommerce" : @{
                                   @"promoClick" : @{
@@ -146,11 +144,11 @@
                                             
                                                               //    Resets ecommerce values.
                                                               TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-                                                              [dataLayer push:@{@"event" : @"EEscreenSeen",
+                                                              [dataLayer push:@{@"event" : @"reset-ecommerce",
                                                                                 @"ecommerce" : [NSNull null]}];
                                                               
                                                               //    Push dictionary to create a purchase hit.
-                                                              [dataLayer push:@{@"event" : @"transactionComplete",
+                                                              [dataLayer push:@{@"event" : @"transaction-complete",
                                                                                 @"eventLabelName" : @"Checkout Complete",
                                                                                 @"eventValueName" : [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total],
                                                                                 @"ecommerce" : @{
@@ -169,7 +167,7 @@
                                                                ];
                                                               
                                                               //    Resets ecommerce values.
-                                                              [dataLayer push:@{@"event" : @"EEscreenSeen",
+                                                              [dataLayer push:@{@"event" : @"reset-ecommerce",
                                                                                 @"ecommerce" : [NSNull null]}];
                                                               
                                                               //    Segue to ThankYouViewController.
@@ -181,10 +179,10 @@
                                                        handler:^(UIAlertAction *action) {
                                                            //   Push dictionary that will create Event hit
                                                            TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
-                                                           [dataLayer push:@{@"event" : @"buttonPressed",
-                                                                             @"eventCategoryName" : @"Button",
-                                                                             @"eventActionName" : @"Pressed",
-                                                                             @"eventLabelName" : @"Cancel Checkout"}];
+                                                           [dataLayer push:@{@"event" : @"button-pressed",
+                                                                             @"event-category-name" : @"Button",
+                                                                             @"event-action-name" : @"Pressed",
+                                                                             @"event-label-name" : @"Cancel Checkout"}];
                                                        }];
         [alertController addAction:yesAction];
         [alertController addAction:cancel];
@@ -201,9 +199,9 @@
                                                            //   Push dictionary that will create an Event tag.
                                                            TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
                                                            [dataLayer push:@{@"event" : @"buttonPressed",
-                                                                             @"eventCategoryName" : @"Button",
-                                                                             @"eventActionName" : @"Pressed",
-                                                                             @"eventLabelName" : @"Fields not Filled"}];
+                                                                             @"event-category-name" : @"Button",
+                                                                             @"event-action-name" : @"Pressed",
+                                                                             @"event-label-name" : @"Fields not Filled"}];
                                                        }];
         [alertController addAction:cancel];
         [self presentViewController:alertController animated:true completion:nil];
