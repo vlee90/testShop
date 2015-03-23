@@ -20,13 +20,14 @@
 #import "TAGContainerOpener.h"
 #import "AppDelegate.h" 
 
-@import AdSupport;
+@import GoogleMobileAds;
 
 
 @interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TAGContainerOpenerNotifier>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cartBarButtonItem;
+@property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
 
 @property (strong, nonatomic) NSMutableArray *dataLayerPreLoadedArray;
 
@@ -38,17 +39,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"LOADED");
-
+    
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidLoadHelper];
     
     NSDictionary *userID = @{@"user-id" : [NSNull null]};
     [self containerStateForkPushDictionary:userID];
     
-    
-    NSString *idfaString = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    NSLog(@"%@", idfaString);
     NSLog(@"%@", PROJECT_DIR);
     
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f2B-cQ-Oq1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f2B-cQ-Oq1">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -34,9 +34,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FPq-3Q-EcO">
-                                <rect key="frame" x="0.0" y="200" width="600" height="300"/>
+                                <rect key="frame" x="0.0" y="200" width="600" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="Lq3-XN-dmx"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="7h1-WI-fHP"/>
+                                    <constraint firstAttribute="height" constant="250" id="Lq3-XN-dmx"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ddV-az-00q">
                                     <size key="itemSize" width="150" height="150"/>
@@ -55,9 +56,14 @@
                                         </view>
                                     </collectionViewCell>
                                 </cells>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="7h1-WI-fHP"/>
+                                    </mask>
+                                </variation>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch To See Detail" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deM-RI-e6d">
-                                <rect key="frame" x="0.0" y="514" width="600" height="36"/>
+                                <rect key="frame" x="0.0" y="500" width="600" height="36"/>
                                 <color key="backgroundColor" red="1" green="0.47596837269999998" blue="0.35869588920000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -70,23 +76,47 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1qf-FK-AEV" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="530" width="600" height="70"/>
+                                <color key="backgroundColor" red="0.2781803337" green="0.86417289399999997" blue="0.33491979030000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="TWG-QA-Kh4"/>
+                                    <constraint firstAttribute="height" constant="70" id="hAz-6z-OaK"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="hAz-6z-OaK"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xuZ-BC-xKi" firstAttribute="leading" secondItem="Mxf-77-xp6" secondAttribute="leading" id="4j6-kX-VO7"/>
-                            <constraint firstItem="grU-ig-dTY" firstAttribute="top" secondItem="deM-RI-e6d" secondAttribute="bottom" constant="50" id="5Vr-5v-R95"/>
+                            <constraint firstItem="grU-ig-dTY" firstAttribute="top" secondItem="deM-RI-e6d" secondAttribute="bottom" constant="30" id="5Vr-5v-R95"/>
                             <constraint firstItem="deM-RI-e6d" firstAttribute="top" secondItem="FPq-3Q-EcO" secondAttribute="bottom" constant="50" id="9eq-ED-PiM"/>
                             <constraint firstAttribute="trailing" secondItem="xuZ-BC-xKi" secondAttribute="trailing" id="CzL-DD-7C6"/>
+                            <constraint firstItem="1qf-FK-AEV" firstAttribute="leading" secondItem="Mxf-77-xp6" secondAttribute="leadingMargin" id="D47-4m-trJ"/>
+                            <constraint firstItem="deM-RI-e6d" firstAttribute="top" secondItem="FPq-3Q-EcO" secondAttribute="bottom" constant="50" id="ENQ-Mw-Kyc"/>
                             <constraint firstAttribute="trailing" secondItem="deM-RI-e6d" secondAttribute="trailing" id="Hvf-WH-5oW"/>
+                            <constraint firstItem="grU-ig-dTY" firstAttribute="top" secondItem="1qf-FK-AEV" secondAttribute="bottom" id="ODK-ad-8bf"/>
                             <constraint firstAttribute="trailing" secondItem="FPq-3Q-EcO" secondAttribute="trailing" id="Rru-GD-WFX"/>
+                            <constraint firstAttribute="trailing" secondItem="1qf-FK-AEV" secondAttribute="trailing" id="Xib-10-u9S"/>
+                            <constraint firstItem="1qf-FK-AEV" firstAttribute="top" secondItem="deM-RI-e6d" secondAttribute="bottom" constant="20" id="Yfv-qM-3oM"/>
                             <constraint firstItem="FPq-3Q-EcO" firstAttribute="leading" secondItem="Mxf-77-xp6" secondAttribute="leading" id="Yvk-5H-pxJ"/>
                             <constraint firstItem="deM-RI-e6d" firstAttribute="leading" secondItem="Mxf-77-xp6" secondAttribute="leading" id="j8c-Oj-YJ8"/>
                             <constraint firstItem="FPq-3Q-EcO" firstAttribute="top" secondItem="xuZ-BC-xKi" secondAttribute="bottom" constant="50" id="jpa-zt-WsX"/>
                             <constraint firstItem="xuZ-BC-xKi" firstAttribute="top" secondItem="VSs-SH-KnY" secondAttribute="bottom" constant="50" id="obV-RP-pb9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1qf-FK-AEV" secondAttribute="trailing" id="rud-yB-ecS"/>
+                            <constraint firstItem="1qf-FK-AEV" firstAttribute="leading" secondItem="Mxf-77-xp6" secondAttribute="leading" id="wGu-RG-jkf"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="9eq-ED-PiM"/>
+                                <exclude reference="D47-4m-trJ"/>
+                                <exclude reference="Yfv-qM-3oM"/>
+                                <exclude reference="rud-yB-ecS"/>
+                                <exclude reference="5Vr-5v-R95"/>
                             </mask>
                         </variation>
                     </view>
@@ -98,6 +128,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bannerView" destination="1qf-FK-AEV" id="XY5-LU-msl"/>
                         <outlet property="cartBarButtonItem" destination="aJT-PD-hQl" id="FT4-9K-D1s"/>
                         <outlet property="collectionView" destination="FPq-3Q-EcO" id="UqC-tH-Trq"/>
                     </connections>
