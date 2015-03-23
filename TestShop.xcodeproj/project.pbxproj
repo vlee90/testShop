@@ -29,6 +29,8 @@
 		635861F71AA3D4C400879E68 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 635861F61AA3D4C400879E68 /* libz.dylib */; };
 		635861F91AA3D4CE00879E68 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 635861F81AA3D4CE00879E68 /* libsqlite3.dylib */; };
 		635861FD1AA3D4F300879E68 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 635861FC1AA3D4F300879E68 /* libGoogleAnalyticsServices.a */; };
+		6359B7D21AC077C7008206FE /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6359B7D11AC077C7008206FE /* AdSupport.framework */; };
+		6359B7D41AC077E1008206FE /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6359B7D31AC077E1008206FE /* libAdIdAccess.a */; };
 		63C1C4AA1AA28D9500CDCD3F /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C1C4A91AA28D9500CDCD3F /* CheckoutViewController.m */; };
 		63E74AC61AAA6C6600AA1458 /* GTM-NJNM8T in Resources */ = {isa = PBXBuildFile; fileRef = 63E74AC51AAA6C6600AA1458 /* GTM-NJNM8T */; };
 /* End PBXBuildFile section */
@@ -85,6 +87,8 @@
 		635861F61AA3D4C400879E68 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		635861F81AA3D4CE00879E68 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		635861FC1AA3D4F300879E68 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		6359B7D11AC077C7008206FE /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		6359B7D31AC077E1008206FE /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdIdAccess.a; sourceTree = "<group>"; };
 		63C1C4A81AA28D9500CDCD3F /* CheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutViewController.h; sourceTree = "<group>"; };
 		63C1C4A91AA28D9500CDCD3F /* CheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutViewController.m; sourceTree = "<group>"; };
 		63E74AC51AAA6C6600AA1458 /* GTM-NJNM8T */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-NJNM8T"; sourceTree = "<group>"; };
@@ -95,6 +99,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6359B7D21AC077C7008206FE /* AdSupport.framework in Frameworks */,
+				6359B7D41AC077E1008206FE /* libAdIdAccess.a in Frameworks */,
 				635861F91AA3D4CE00879E68 /* libsqlite3.dylib in Frameworks */,
 				635861F71AA3D4C400879E68 /* libz.dylib in Frameworks */,
 				635861F51AA3D4BB00879E68 /* SystemConfiguration.framework in Frameworks */,
@@ -116,6 +122,7 @@
 		630285E31AA1075A001495E2 = {
 			isa = PBXGroup;
 			children = (
+				6359B7D11AC077C7008206FE /* AdSupport.framework */,
 				630285EE1AA1075A001495E2 /* TestShop */,
 				630286081AA1075A001495E2 /* TestShopTests */,
 				630285ED1AA1075A001495E2 /* Products */,
@@ -220,6 +227,7 @@
 		635861F11AA3D49A00879E68 /* GTM */ = {
 			isa = PBXGroup;
 			children = (
+				6359B7D31AC077E1008206FE /* libAdIdAccess.a */,
 				63E74AC51AAA6C6600AA1458 /* GTM-NJNM8T */,
 				630C8D3C1AA4CEF30087D789 /* TAGContainer.h */,
 				630C8D3D1AA4CEF30087D789 /* TAGContainerOpener.h */,
@@ -473,12 +481,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					"DEBUG=1",
+					"$(inherited)",
+					"PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"",
+				);
 				INFOPLIST_FILE = TestShop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/vincentlee/Downloads/GoogleAnalyticsServicesiOS_3.10,
 					"$(PROJECT_DIR)/TestShop",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					AdSupport,
+					"-force_load",
+					"$(PROJECT_DIR)/TestShop/libAdIdAccess.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -18,7 +18,10 @@
 #import "TAGManager.h"
 
 #import "TAGContainerOpener.h"
-#import "AppDelegate.h"
+#import "AppDelegate.h" 
+
+@import AdSupport;
+
 
 @interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TAGContainerOpenerNotifier>
 
@@ -42,6 +45,12 @@
     
     NSDictionary *userID = @{@"user-id" : [NSNull null]};
     [self containerStateForkPushDictionary:userID];
+    
+    
+    NSString *idfaString = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    NSLog(@"%@", idfaString);
+    NSLog(@"%@", PROJECT_DIR);
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
