@@ -11,6 +11,10 @@
 #import "TAGManager.h"
 #import "ShopViewController.h"
 
+#import "GAITracker.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAI.h"
+#import "GAIFields.h"
 
 @interface AppDelegate ()
 
@@ -43,17 +47,44 @@
     NSTimeInterval dispatchTime = 5;
     [self.tagManager setDispatchInterval:dispatchTime];
 #endif
+    NSURL *url = [[NSURL alloc] initWithString:@"MFSkaterBrad://hostName?utm_campaign=test-shop-sale&utm_source=test-shop&utm_medium=referral&utm_term=seattle&utm_content=app-link"];
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        NSLog(@"URL Shall be Opened: %@", [url absoluteString]);
+        [[UIApplication sharedApplication] openURL:url];
+    }
     
     return YES;
 }
 
+
+
 #ifdef DEBUG
 //  More PREVIEW Code
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([self.tagManager previewWithUrl:url]) {
-        return YES;
-    }
-    return NO;
+    
+    NSString *urlString = [url absoluteString];
+    NSLog(@"Handling URL: %@", urlString);
+    
+    return YES;
+    
+//    NSString *urlString = [url absoluteString];
+//    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-60094916-4"];
+//    GAIDictionaryBuilder *hitParams = [[GAIDictionaryBuilder alloc] init];
+//    [[hitParams setCampaignParametersFromUrl:urlString] build];
+//    if (![hitParams valueForKey:kGAICampaignSource] && [url host].length != 0) {
+//        [hitParams setValue:sourceApplication forKey:kGAICampaignMedium];
+//        [hitParams setValue:[url host] forKey:kGAICampaignSource];
+//    }
+//    
+//    NSDictionary *hitParamDict = [hitParams build];
+//    NSLog(@"%@", hitParamDict);
+//    [tracker send:[[[GAIDictionaryBuilder createScreenView] setAll:hitParamDict] build]];
+//    
+//    if ([self.tagManager previewWithUrl:url]) {
+//        return YES;
+//    }
+//    
+//    return NO;
 }
 #endif
 

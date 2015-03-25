@@ -23,7 +23,7 @@
 @import GoogleMobileAds;
 
 
-@interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TAGContainerOpenerNotifier>
+@interface ShopViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TAGContainerOpenerNotifier, GADBannerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cartBarButtonItem;
@@ -40,6 +40,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //AdMob BannerView
+    self.bannerView.adUnitID = @"ca-app-pub-9556864914299273/1742019142";
+    self.bannerView.rootViewController = self;
+    GADRequest *request = [GADRequest request];
+    request.testDevices = @[@"55d62768130c65acb15406b335eef4c6"];
+    request.contentURL = @"https://click.google-analytics.com/redirect?tid=UA-60094916-4&url=https%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fskater-brad%2Fid939780266%3Fmt%3D8&aid=com.analyticspros.TestShop&idfa={idfa}&cs=newsletter&cm=email&cn=email-campaign-march-2015&cc=text-link&hash=md5";
+    [self.bannerView loadRequest:request];
+    https://click.google-analytics.com/redirect?tid=UA-60094916-4&url=https%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fskater-brad%2Fid939780266%3Fmt%3D8&aid=com.analyticspros.TestShop&idfa=$IDA&cs=newsletter&cm=email&cn=email-campaign-march-2015&cc=text-link
+    
+    
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidLoadHelper];
     
@@ -47,8 +57,9 @@
     [self containerStateForkPushDictionary:userID];
     
     NSLog(@"%@", PROJECT_DIR);
-    
 }
+
+
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
