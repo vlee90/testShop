@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) NSMutableArray *cartArray;
 @property NSInteger total;
+@property NSString *transactionID;
 
 +(Cart *)singleton;
 -(instancetype)init;
@@ -19,5 +20,6 @@
 -(void)calculateTotal;
 -(NSArray *)ecommerceCartArray;
 -(NSInteger)totalNumberOfItemsInCart;
+-(NSArray *)productFieldObjectCart;
 
 @end

@@ -19,9 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //  Set screen name for GTM App View based on ViewController's item.
-    self.screenName = [NSString stringWithFormat:@"Detail View - %@", self.item.name];
     [self viewDidLoadHelper];
 }
 
@@ -29,31 +26,11 @@
     [super viewDidAppear:animated];
     
     //  Push screen name and event to fire an App View Tag to the dataLayer.
-    [AnalyticsEngine pushScreenWithName:self.screenName fromViewController:self];
+    [AnalyticsEngine pushScreenWithName:[NSString stringWithFormat:@"Detail View - %@", self.item.name] fromViewController:self];
     
     //  Push a dictionary that will create a Enhanced Ecommerce detail hit.
-    NSDictionary *enhancedEcommerceDictionary = @{@"event" : @"EEscreenSeen",
-                                                  @"ecommerce" : @{
-                                                          @"detail" : @{
-                                                                  @"actionField" : @{
-                                                                          @"list" : @"Front Page Shop"
-                                                                          },
-                                                                  @"products" : @[
-                                                                          @{@"name" : self.item.name,
-                                                                            @"id" : self.item.sku,
-                                                                            @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
-                                                                            @"brand" : self.item.brand,
-                                                                            @"category" : self.item.category,
-                                                                            @"variant" : self.item.varient
-                                                                            }
-                                                                          ]
-                                                                  }
-                                                          }
-                                                  };
-    
-    //  Reset ecommerce values in dataLayer.
-    NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",
-                                      @"ecommerce" : [NSNull null]};
+    AEProductFieldObject *product = [self.item productFieldObjectWithPosition:nil coupon:nil];
+    [AnalyticsEngine pushEnhancedEcommerceProductDetail:@[product] onList:@"Front Page Shop"];
 }
 
 -(IBAction)buyButtonPressed:(id)sender {
@@ -78,30 +55,8 @@
     
     
     //  Push dictionary that will create an add hit when pushed to the dataLayer.
-    NSDictionary *addToCartDictionary = @{@"event" : @"addToCart",
-                                          @"ecommerce" : @{
-                                                  @"actionField" : @{
-                                                          @"list" : @"Front Page Shop"
-                                                          },
-                                                  @"currencyCode" : @"USD",
-                                                  @"add" : @{
-                                                          @"products" : @[
-                                                                  @{@"name" : self.item.name,
-                                                                    @"id" : self.item.sku,
-                                                                    @"price" : [NSString stringWithFormat:@"%ld", (long)self.item.cost],
-                                                                    @"brand" : self.item.brand,
-                                                                    @"category" : self.item.category,
-                                                                    @"variant" : self.item.varient,
-                                                                    @"quantity" : @1
-                                                                    }
-                                                                  ]
-                                                          }
-                                                  }
-                                          };
-    
-    //  Reset ecommerce values.
-    NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",
-                                      @"ecommerce" : [NSNull null]};
+    AEProductFieldObject *product = [self.item productFieldObjectWithPosition:nil coupon:nil];
+    [AnalyticsEngine pushEnhancedEcommerceAddProduct:@[product] onList:nil];
 }
 
 //  Helper function that runs non GTM related code in viewDidLoad.

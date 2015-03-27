@@ -36,9 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //  Sets screen name for App View Hit.
-    self.screenName = @"Checkout View";
-    
     //  Additional non-GTM code.
     [self viewDidLoadHelper];
     
@@ -48,43 +45,25 @@
     [super viewWillAppear:animated];
     
     //  Get all products in cart. They are formatted in a way that Enhanced Ecommerce will understand.
-    NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
+//    NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] productFieldObjectCart]];
     
     //  Sent hit for App View.
-    [AnalyticsEngine pushScreenWithName:self.screenName fromViewController:self];
-    
-    //  Reset ecommerce values.
-    NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",
-                                      @"ecommerce" : [NSNull null]};
+    [AnalyticsEngine pushScreenWithName:@"Checkout View" fromViewController:self];
     
     //  Push dictionary that will create a checkout step hit.
-    NSDictionary *checkoutStepDictionary = @{@"event" : @"shippingPaymentSeen",
-                                             @"ecommerce" : @{
-                                                     @"checkout" : @{
-                                                             @"actionField" : @{
-                                                                     @"step" : @2,
-                                                                     @"option" : self.shippingOption,
-                                                                     },
-                                                             @"products" : productArray
-                                                             }
-                                                     }
-                                             };
     
-    //  Reset ecommerce values.
+//    NSMutableArray *AEProductFieldArray = [NSMutableArray new];
+//    for (Item* item in productArray) {
+//        AEProductFieldObject *product = [item productFieldObjectWithPosition:nil coupon:nil];
+//        [AEProductFieldArray addObject:product];
+//    }
+    //  Push a dictionary to that will create a checkout step.
+    [AnalyticsEngine pushEnhancedEcommerceCheckoutStep:@2 withOption:self.shippingOption withProducts:[[Cart singleton] productFieldObjectCart]];
     
+    
+    AEPromoFieldObject *promo = [[AEPromoFieldObject alloc] initWithID:@"FREE_SHIPPING_PROMO" name:@"Free Shipping Promo" creative:@"bottom" position:@"slot1"];
     //  Push dictionary that will create a promoView hit.
-    NSDictionary *promoViewDictionary =  @{@"event" : @"EEscreenSeen",
-                                           @"ecommerce" : @{
-                                                   @"promoView" : @{
-                                                           @"promotions" : @[
-                                                                   @{@"id" : @"FREE_SHIPPING_PROMO",
-                                                                     @"name" : @"Free Shipping Promo",
-                                                                     @"creative" : @"bottom",
-                                                                     @"position" : @"slot1"}
-                                                                   ]
-                                                           }
-                                                   }
-                                           };
+    [AnalyticsEngine pushEnhancedEcommercePromoImpression:@[promo]];
 }
 
 //  Will change shipping state based on Switch Value.
@@ -96,19 +75,8 @@
         self.shippingOption = @"Free Shipping";
         
         //  Push dictionary to create a promoClick hit.
-        NSDictionary *promoClickDictionary =  @{@"event" : @"promotionTouched",
-                                                @"promoName" : @"Free Shipping Promo",
-                                                @"ecommerce" : @{
-                                                        @"promoClick" : @{
-                                                                @"promotions" : @[
-                                                                        @{@"id" : @"FREE_SHIPPING_PROMO",
-                                                                          @"name" : @"Free Shipping Promo",
-                                                                          @"creative" : @"bottom",
-                                                                          @"position" : @"slot1"}
-                                                                        ]
-                                                                }
-                                                        }
-                                                };
+        AEPromoFieldObject *promo = [[AEPromoFieldObject alloc] initWithID:@"FREE_SHIPPING_PROMO" name:@"Free Shipping Promo" creative:@"bottom" position:@"slot1"];
+        [AnalyticsEngine pushEnhancedEcommercePromoSelections:@[promo]];
     }
     else {
         //  Free Shipping Off
@@ -131,34 +99,12 @@
                                                               //    Random transactionID generater
                                                               int r = arc4random();
                                                               NSString *transactionId = [NSString stringWithFormat:@"%f-%d", NSDate.date.timeIntervalSince1970, r];
+                                                              [Cart singleton].transactionID = transactionId;
+                                                              AEEnhancedEcommerceTransaction *transaction = [[AEEnhancedEcommerceTransaction alloc] initWithID:transactionId affiliation:@"Analytics Pros App Fruit Store" revenue:[NSString stringWithFormat:@"%ld", (long)[Cart singleton].total] tax:[NSString stringWithFormat:@"%f", (long)[Cart singleton].total * 0.065] shipping:self.shippingFee coupon:@"COUPON CODE" products:[[Cart singleton] productFieldObjectCart]];
                                                               
-                                                              //    Grab all items in the cart singleton.
-                                                              NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
                                                               
                                                               
-                                                              //    Resets ecommerce values.
-                                                              NSDictionary *resetDictionary =  @{@"event" : @"EEscreenSeen",
-                                                                                                 @"ecommerce" : [NSNull null]};
-                                                              
-                                                              //    Push dictionary to create a purchase hit.
-                                                              NSDictionary *purchaseDictionary =  @{@"event" : @"transactionComplete",
-                                                                                                    @"eventLabelName" : @"Checkout Complete",
-                                                                                                    @"eventValueName" : [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total],
-                                                                                                    @"ecommerce" : @{
-                                                                                                            @"purchase" : @{
-                                                                                                                    @"actionField" : @{
-                                                                                                                            @"id" : transactionId,
-                                                                                                                            @"affiliation" : @"Analytics Pros App Fruit Store",
-                                                                                                                            @"revenue" : [NSString stringWithFormat:@"%ld", (long)[Cart singleton].total],
-                                                                                                                            @"tax" : [NSString stringWithFormat:@"%f", (long)[Cart singleton].total * 0.065],
-                                                                                                                            @"shipping" : self.shippingFee,
-                                                                                                                            },
-                                                                                                                    @"products" : productArray
-                                                                                                                    }
-                                                                                                            }
-                                                                                                    };
-                                                              
-                                                              //    Resets ecommerce values.
+                                                              [AnalyticsEngine pushEnhancedEcommercePurchaseWithTransaction:transaction];
                                                               
                                                               //    Segue to ThankYouViewController.
                                                               ThankYouViewController *thankYouVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ThankYouVC"];

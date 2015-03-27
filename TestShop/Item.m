@@ -25,4 +25,14 @@
     return self;
 }
 
+-(AEProductFieldObject *)productFieldObjectWithPosition:(NSNumber *)position coupon:(NSString *)coupon {
+    AEProductFieldObject *product = [[AEProductFieldObject alloc] initWithID:self.sku name:self.name brand:self.brand category:self.category variant:self.varient position:position coupon:coupon price:[NSString stringWithFormat:@"$%ld.00", (long)self.cost] quantity:[[NSNumber alloc] initWithInteger:self.count]];
+    return product;
+}
+
+-(AEImpressionFieldObject *)impressionFieldObjectWithPosition:(NSNumber *)position onList:(NSString *)list {
+    AEImpressionFieldObject *impression = [[AEImpressionFieldObject alloc] initWithID:self.sku name:self.name list:list brand:self.brand category:self.category variant:self.varient position:position price:[NSString stringWithFormat:@"$%ld.00", (long)self.cost]];
+    return impression;
+}
+
 @end

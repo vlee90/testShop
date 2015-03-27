@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@import AnalyticsEngine;
 
 @interface Item : NSObject
 
@@ -21,5 +22,7 @@
 @property (strong, nonatomic) NSString *varient;
 
 -(instancetype)initWithName:(NSString *)name cost:(NSInteger)cost image:(UIImage *)image description:(NSString *)description sku:(NSString *)sku brand:(NSString *)brand category:(NSString *)category varient:(NSString *)varient;
-
+-(AEProductFieldObject *)productFieldObjectWithPosition:(NSNumber *)position coupon:(NSString *)coupon;
+-(AEImpressionFieldObject *)impressionFieldObjectWithPosition:(NSNumber *)position onList:(NSString *)list;
+  
 @end

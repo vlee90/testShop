@@ -24,9 +24,10 @@
 		630286391AA12E57001495E2 /* CartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 630286371AA12E57001495E2 /* CartCell.m */; };
 		6302863A1AA12E57001495E2 /* CartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630286381AA12E57001495E2 /* CartCell.xib */; };
 		6302863D1AA15317001495E2 /* ThankYouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6302863C1AA15317001495E2 /* ThankYouViewController.m */; };
-		632CE33A1AB0CF5100668F12 /* GTM-NJNM8T in Resources */ = {isa = PBXBuildFile; fileRef = 632CE3391AB0CF5100668F12 /* GTM-NJNM8T */; };
-		63A4D2FC1AB2B92A00B89DC9 /* AnalyticsEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A4D2FB1AB2B92A00B89DC9 /* AnalyticsEngine.framework */; };
-		63A4D2FE1AB2B9BE00B89DC9 /* AnalyticsEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 63A4D2FB1AB2B92A00B89DC9 /* AnalyticsEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6313AC651AC60A6300BB17FF /* AnalyticsEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6313AC641AC60A6300BB17FF /* AnalyticsEngine.framework */; };
+		6313AC661AC60EC400BB17FF /* AnalyticsEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6313AC641AC60A6300BB17FF /* AnalyticsEngine.framework */; };
+		6313AC671AC60EC400BB17FF /* AnalyticsEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6313AC641AC60A6300BB17FF /* AnalyticsEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		631BFF361AC4CB7900BC0E14 /* GTM-NJNM8T in Resources */ = {isa = PBXBuildFile; fileRef = 631BFF351AC4CB7900BC0E14 /* GTM-NJNM8T */; };
 		63C1C4AA1AA28D9500CDCD3F /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C1C4A91AA28D9500CDCD3F /* CheckoutViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -47,7 +48,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				63A4D2FE1AB2B9BE00B89DC9 /* AnalyticsEngine.framework in Embed Frameworks */,
+				6313AC671AC60EC400BB17FF /* AnalyticsEngine.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,8 +87,8 @@
 		630286381AA12E57001495E2 /* CartCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartCell.xib; sourceTree = "<group>"; };
 		6302863B1AA15317001495E2 /* ThankYouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThankYouViewController.h; sourceTree = "<group>"; };
 		6302863C1AA15317001495E2 /* ThankYouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThankYouViewController.m; sourceTree = "<group>"; };
-		632CE3391AB0CF5100668F12 /* GTM-NJNM8T */ = {isa = PBXFileReference; lastKnownFileType = file; name = "GTM-NJNM8T"; path = "../../../../Downloads/GTM-NJNM8T"; sourceTree = "<group>"; };
-		63A4D2FB1AB2B92A00B89DC9 /* AnalyticsEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AnalyticsEngine.framework; sourceTree = "<group>"; };
+		6313AC641AC60A6300BB17FF /* AnalyticsEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AnalyticsEngine.framework; sourceTree = "<group>"; };
+		631BFF351AC4CB7900BC0E14 /* GTM-NJNM8T */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-NJNM8T"; sourceTree = "<group>"; };
 		63C1C4A81AA28D9500CDCD3F /* CheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutViewController.h; sourceTree = "<group>"; };
 		63C1C4A91AA28D9500CDCD3F /* CheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,7 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63A4D2FC1AB2B92A00B89DC9 /* AnalyticsEngine.framework in Frameworks */,
+				6313AC651AC60A6300BB17FF /* AnalyticsEngine.framework in Frameworks */,
+				6313AC661AC60EC400BB17FF /* AnalyticsEngine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				630285F31AA1075A001495E2 /* AppDelegate.h */,
-				63A4D2FB1AB2B92A00B89DC9 /* AnalyticsEngine.framework */,
 				630285F41AA1075A001495E2 /* AppDelegate.m */,
 				630286211AA108BB001495E2 /* Model */,
 				630286221AA108C1001495E2 /* View Controller */,
@@ -147,7 +148,8 @@
 		630285EF1AA1075A001495E2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				632CE3391AB0CF5100668F12 /* GTM-NJNM8T */,
+				6313AC641AC60A6300BB17FF /* AnalyticsEngine.framework */,
+				631BFF351AC4CB7900BC0E14 /* GTM-NJNM8T */,
 				630285F01AA1075A001495E2 /* Info.plist */,
 				630285F11AA1075A001495E2 /* main.m */,
 			);
@@ -298,9 +300,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				630286251AA10928001495E2 /* ItemCell.xib in Resources */,
+				631BFF361AC4CB7900BC0E14 /* GTM-NJNM8T in Resources */,
 				6302863A1AA12E57001495E2 /* CartCell.xib in Resources */,
 				630285FB1AA1075A001495E2 /* Main.storyboard in Resources */,
-				632CE33A1AB0CF5100668F12 /* GTM-NJNM8T in Resources */,
 				630286001AA1075A001495E2 /* LaunchScreen.xib in Resources */,
 				630285FD1AA1075A001495E2 /* Images.xcassets in Resources */,
 			);

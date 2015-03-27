@@ -26,10 +26,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //  Set screen name for GTM App View.
-    self.screenName = @"Cart View";
-    
     //  Additional non-GTM loading code.
     [self viewDidLoadHelper];
 }
@@ -38,29 +34,19 @@
     [super viewWillAppear:animated];
     
     //  Push dictionary to dataLayer that will create App View hit.
-    [AnalyticsEngine pushScreenWithName:self.screenName fromViewController:self];
+    [AnalyticsEngine pushScreenWithName:@"Cart View" fromViewController:self];
     
     //  Get all products in cart. They are formatted in a way that Enhanced Ecommerce will understand.
-    NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] ecommerceCartArray]];
+//    NSArray *productArray = [[NSArray alloc] initWithArray:[[Cart singleton] productFieldObjectCart]];
     
-    //  Reset ecommerce values.
-    NSDictionary *resetDictionary = @{@"event" : @"EEscreenSeen",
-                                      @"ecommerce" : [NSNull null]};
+//    NSMutableArray *AEProductFieldArray = [NSMutableArray new];
+//    for (Item* item in productArray) {
+//        AEProductFieldObject *product = [item productFieldObjectWithPosition:nil coupon:nil];
+//        [AEProductFieldArray addObject:product];
+//    }
     
     //  Push a dictionary to that will create a checkout step.
-    NSDictionary *checkoutStepDictionary = @{@"event" : @"cartSeen",
-                                             @"ecommerce" : @{
-                                                     @"checkout" : @{
-                                                             @"actionField" : @{
-                                                                     @"step" : @1
-                                                                     },
-                                                             @"products" : productArray
-                                                             }
-                                                     }
-                                             }
-    ;
-    
-    //  Reset ecommerce values.
+    [AnalyticsEngine pushEnhancedEcommerceCheckoutStep:@1 withOption:nil withProducts:[[Cart singleton] productFieldObjectCart]];
 }
 
 -(void)checkoutButtonPressed:(id)sender {

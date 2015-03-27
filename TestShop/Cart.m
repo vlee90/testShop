@@ -64,6 +64,15 @@
     return cartArrayForEcommerce;
 }
 
+-(NSArray *)productFieldObjectCart {
+    NSMutableArray *cartArrayForProductFieldObjects = [NSMutableArray new];
+    for (Item* item in [Cart singleton].cartArray) {
+        AEProductFieldObject *product = [item productFieldObjectWithPosition:nil coupon:nil];
+        [cartArrayForProductFieldObjects addObject:product];
+    }
+    return cartArrayForProductFieldObjects;
+}
+
 //  Returns the amount of items in the cart.
 -(NSInteger)totalNumberOfItemsInCart {
     NSInteger totalNumberOfItems = 0;

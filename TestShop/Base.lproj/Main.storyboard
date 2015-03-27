@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f2B-cQ-Oq1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f2B-cQ-Oq1">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -285,20 +285,44 @@
                                     <action selector="returnButtonPressed:" destination="QPP-EQ-no7" eventType="touchUpInside" id="jTJ-fF-WAO"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEF-SX-UYf">
+                                <rect key="frame" x="26" y="495" width="78" height="30"/>
+                                <state key="normal" title="Full Refund">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="fullRefundButtonPressed:" destination="QPP-EQ-no7" eventType="touchUpInside" id="d7a-3w-p2u"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G1S-Ky-Rd7">
+                                <rect key="frame" x="477" y="495" width="97" height="30"/>
+                                <state key="normal" title="Partial Refund">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="partialRefundButtonPressed:" destination="QPP-EQ-no7" eventType="touchUpInside" id="1ae-nH-KWD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="o4o-BW-cAs" secondAttribute="trailing" id="5Ul-eG-Efh"/>
                             <constraint firstItem="ZfZ-Z9-6U5" firstAttribute="top" secondItem="o4o-BW-cAs" secondAttribute="bottom" constant="125" id="DNd-hu-OgC"/>
+                            <constraint firstItem="YEF-SX-UYf" firstAttribute="leading" secondItem="tfB-km-NF4" secondAttribute="leadingMargin" constant="10" id="Eef-4H-2iY"/>
                             <constraint firstAttribute="trailing" secondItem="GSJ-HS-4vx" secondAttribute="trailing" id="IBm-Gl-onY"/>
+                            <constraint firstItem="G1S-Ky-Rd7" firstAttribute="top" secondItem="o4o-BW-cAs" secondAttribute="bottom" constant="20" id="NZi-Cw-f6y"/>
                             <constraint firstAttribute="centerX" secondItem="o4o-BW-cAs" secondAttribute="centerX" id="ZaN-Hg-1ga"/>
                             <constraint firstAttribute="centerX" secondItem="GSJ-HS-4vx" secondAttribute="centerX" id="aty-ke-KW6"/>
+                            <constraint firstItem="YEF-SX-UYf" firstAttribute="top" secondItem="o4o-BW-cAs" secondAttribute="bottom" constant="20" id="awS-0G-CgK"/>
                             <constraint firstItem="GSJ-HS-4vx" firstAttribute="top" secondItem="9DI-cW-1kb" secondAttribute="bottom" constant="125" id="bhb-cT-6AW"/>
                             <constraint firstItem="o4o-BW-cAs" firstAttribute="leading" secondItem="tfB-km-NF4" secondAttribute="leading" id="d6r-jz-gRw"/>
                             <constraint firstItem="GSJ-HS-4vx" firstAttribute="leading" secondItem="tfB-km-NF4" secondAttribute="leading" id="e1b-bc-69e"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="G1S-Ky-Rd7" secondAttribute="trailing" constant="10" id="f4G-N9-bH8"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="fullRefundButton" destination="YEF-SX-UYf" id="Frf-7F-5VU"/>
+                        <outlet property="partialRefundButton" destination="G1S-Ky-Rd7" id="oyh-Da-GgK"/>
                         <outlet property="returnButton" destination="o4o-BW-cAs" id="vaj-gG-3pu"/>
                         <outlet property="thankyouLabel" destination="GSJ-HS-4vx" id="0p9-7z-2pz"/>
                     </connections>

@@ -29,20 +29,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.screenName = @"Shop View";
-    
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidLoadHelper];
-    
-    NSDictionary *userID = @{@"userId" : @"USER_ID"};
-    [AnalyticsEngine pushEventNamed:@"user-is-authenticated" withParams:userID];
+    NSDictionary *userID = @{@"ae-user-id" : @"USER_ID"};
+    [AnalyticsEngine pushEventNamed:@"ae-user-is-authenticated" withParams:userID];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     //  Send App View with screen name Shop View to the data layer.
-    [AnalyticsEngine pushScreenWithName:self.screenName fromViewController:self];
+    [AnalyticsEngine pushScreenWithName:@"Shop View" fromViewController:self];
     //  Code that helps set up View Controller but doesn't relate to GTM.
     [self viewDidAppearHelper];
 }
@@ -51,12 +48,9 @@
     //  Total Number of items in cart.
     NSNumber *numberOfItems = [[NSNumber alloc] initWithInteger:[Cart singleton].totalNumberOfItemsInCart];
     //  Build dictionary to fire Event Tag.
-    NSDictionary *cartButtonDictionary = @{@"event" : @"buttonPressed",
-                                           @"eventCategoryName" : @"Button",
-                                           @"eventActionName" : @"Pressed",
-                                           @"eventLabelName" : @"Cart",
-                                           @"eventValueName" : numberOfItems};
-    
+    NSDictionary *cartButtonDictionary = @{@"event-label-name" : [NSNull null],
+                                           @"event-value-name" : numberOfItems};
+    [AnalyticsEngine pushEventNamed:@"button-pressed" withParams:cartButtonDictionary];
     //  Push to the User's Cart.
     CartViewController *cartVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CartVC"];
     [self.navigationController pushViewController:cartVC animated:true];
@@ -74,22 +68,8 @@
     [cell.countLabel.layer setMasksToBounds: true];
     
     //  Create dictionary for impression hit that represents the item in the cell.
-    NSDictionary *impressionDictionary = @{@"ecommerce" : @{
-                                                   @"impressions" : @[
-                                                           @{@"name" : item.name,
-                                                             @"id" : item.sku,
-                                                             @"price" : [NSString stringWithFormat:@"%ld", (long)item.cost],
-                                                             @"brand" : item.brand,
-                                                             @"category" : item.category,
-                                                             @"variant" : item.varient,
-                                                             @"list" : @"Front Page Shop",
-                                                             @"position" : [[NSNumber alloc] initWithInteger:indexPath.row]
-                                                             }
-                                                           ]
-                                                   }
-                                           };
-    [AnalyticsEngine pushEventNamed:@"impression-seen" withParams:impressionDictionary];
-    [AnalyticsEngine pushEventNamed:@"reset-ecommerce" withParams:@{@"ecommerce" : [NSNull null]}];
+    AEImpressionFieldObject *impression = [item impressionFieldObjectWithPosition:[[NSNumber alloc] initWithInteger:indexPath.row] onList:@"Front Page Shop"];
+    [AnalyticsEngine pushEnhancedEcommerceImpression:@[impression]];
     return cell;
 }
 
@@ -106,25 +86,11 @@
     Item *item = [shop.shopItems objectAtIndex:indexPath.row];
     
     //  Create dictionary that will create a product touched event when pushed to the dataLayer.
-    NSDictionary *productTouchedDictionary =  @{@"eventLabelName" : item.name,
-                                                @"ecommerce" : @{
-                                                        @"click" : @{
-                                                                @"actionField" : @{
-                                                                        @"list" : @"Front Page Shop"
-                                                                        },
-                                                                @"products" : @[
-                                                                        @{@"name" : item.name,
-                                                                          @"id" : item.sku,
-                                                                          @"price" : [NSString stringWithFormat:@"%ld", (long)item.cost],
-                                                                          @"brand" : @"Analytics Pros",
-                                                                          @"category" : item.category,
-                                                                          @"variant" : item.varient}
-                                                                        ]
-                                                                }
-                                                        }
-                                                };
+    AEProductFieldObject *product = [item productFieldObjectWithPosition:[[NSNumber alloc] initWithInteger:indexPath.row] coupon:nil];
+    
+    [AnalyticsEngine pushEnhancedEcommerceProductSelections:@[product] onList:@"Front Page Shop"];
+    
     //  Push view to the DetailViewController.
-    [AnalyticsEngine pushEventNamed:@"productTouched" withParams:productTouchedDictionary];
     DetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     detailVC.item = item;
     [self.navigationController pushViewController:detailVC animated:true];
