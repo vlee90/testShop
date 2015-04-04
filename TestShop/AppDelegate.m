@@ -47,7 +47,7 @@
     NSTimeInterval dispatchTime = 5;
     [self.tagManager setDispatchInterval:dispatchTime];
 #endif
-    NSURL *url = [[NSURL alloc] initWithString:@"MFSkaterBrad://hostName?utm_campaign=test-shop-sale&utm_source=test-shop&utm_medium=referral&utm_term=seattle&utm_content=app-link"];
+    NSURL *url = [[NSURL alloc] initWithString:@"MFSkaterBrad://hostName?utm_campaign=test-shop-sale-040315&utm_source=test-shop-040315&utm_medium=referral-040315&utm_term=seattle-040315&utm_content=app-link-040315;zznj"];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         NSLog(@"URL Shall be Opened: %@", [url absoluteString]);
         [[UIApplication sharedApplication] openURL:url];
