@@ -24,6 +24,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSLog(@"Application didFinishLaunching");
     self.isContainerOpen = false;
     
     //  Get singleton of TAGManager
@@ -61,7 +62,7 @@
 #ifdef DEBUG
 //  More PREVIEW Code
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
+    NSLog(@"open URL:%@",[url absoluteString]);
     NSString *urlString = [url absoluteString];
     NSLog(@"Handling URL: %@", urlString);
     
@@ -87,6 +88,7 @@
 //    return NO;
 }
 #endif
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
